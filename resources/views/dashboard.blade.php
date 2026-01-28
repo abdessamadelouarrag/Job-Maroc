@@ -80,9 +80,15 @@
                 <!-- <span class="text-brand-700 font-bold text-xl">
                   {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </span> -->
-                <img src="{{ asset('storage/' . auth()->user()->image_url)}}" class="w-full h-full object-cover">
-              </div>
+                <!-- <img src="{{asset('storage/' . auth()->user()->image_url)}}" class="w-full h-full object-cover"> -->
+                <img 
+    src="{{ auth()->user()->image_url 
+            ? asset('storage/' . auth()->user()->image_url) 
+            : asset('images/default-avatar.png') }}"
+    class="w-full h-full object-cover"
+/>
 
+              </div>
               <a href="{{ route('profile.edit') }}"
                  class="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-700">
                 Edit profile
