@@ -69,7 +69,7 @@
         <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
           {{-- Banner --}}
           <div class="h-20 overflow-hidden">
-              <img src="{{ auth()->user()->banner_url}}" alt="">
+              <img src="{{ asset('storage/' . auth()->user()->banner_url)}}" alt="">
           </div>
 
           <div class="px-5 pb-5">
@@ -80,7 +80,7 @@
                 <!-- <span class="text-brand-700 font-bold text-xl">
                   {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </span> -->
-                <img src="{{ auth()->user()->image_url}}">
+                <img src="{{ asset('storage/' . auth()->user()->image_url)}}" class="w-full h-full object-cover">
               </div>
 
               <a href="{{ route('profile.edit') }}"
@@ -130,7 +130,7 @@
         <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
           <div class="flex gap-3">
             <div class="w-10 h-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center font-bold text-brand-700 overflow-hidden">
-              <img class="w-full h-full object-cover" src="{{ auth()->user()->image_url}}">
+              <img class="w-full h-full object-cover" src="{{ asset('storage/' . auth()->user()->image_url)}}">
             </div>
             <input
               type="text"

@@ -50,15 +50,13 @@
   {{-- Header card --}}
   <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
     <div class="h-28 bg-cover bg-center overflow-hidden">
-        <img class="h-full w-full object-cover" src="{{ auth()->user()->banner_url}}">
+        <img class="h-full w-full object-cover" src="{{ asset('storage/' . auth()->user()->banner_url)}}">
     </div>
 
     <div class="p-6">
       <div class="-mt-12 flex items-end justify-between gap-4">
         <div class="w-24 h-24 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
-          <img
-            src="{{ auth()->user()->image_url}}"
-          >
+          <img src="{{ asset('storage/' . auth()->user()->image_url)}}" class="w-full h-full object-cover">
         </div>
 
         <div class="text-right">
@@ -113,7 +111,7 @@
         </button>
 
         @if (session('status') === 'profile-updated')
-          <span class="text-sm text-green-600 font-semibold">Saved ✅</span>
+          <span class="text-sm text-green-600 font-semibold">Saved</span>
         @endif
       </div>
     </form>
@@ -124,22 +122,21 @@
     <h2 class="text-lg font-bold text-slate-900">Profile images</h2>
     <p class="text-sm text-slate-500 mt-1">Change avatar and banner.</p>
 
-    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-5">
+    <form method="POST" action="{{ route('upload.image') }}" enctype="multipart/form-data" class="mt-6 space-y-5">
       @csrf
-      @method('PATCH')
+      <!-- @method('PATCH') -->
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
           <p class="text-sm font-semibold text-slate-900">Current banner</p>
-          <div class="mt-3 h-28 rounded-xl bg-cover bg-center border border-slate-200"
-            style="background-image: url('{{ auth()->user()->banner_url
-              ? asset('storage/' . auth()->user()->banner_url)
-              : asset('images/default-banner.jpg') }}');">
+          <div class="mt-3 h-28 rounded-xl bg-cover bg-center border border-slate-200 overflow-hidden">
+            <img src="{{ asset('storage/' . auth()->user()->banner_url)}}" class="w-full h-full object-cover">
           </div>
 
           <label class="block text-sm font-medium text-slate-700 mt-4">New banner</label>
-          <input type="file" name="banner" accept="image/*"
+          <input type="file" name="banner" accept="image/*" 
             class="mt-2 block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-white file:text-slate-700 file:font-semibold border border-slate-200 rounded-xl p-2 bg-white">
+
           <p class="text-xs text-slate-500 mt-2">PNG/JPG recommended.</p>
           @error('banner')
             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -150,13 +147,8 @@
           <p class="text-sm font-semibold text-slate-900">Current avatar</p>
           <div class="mt-3 flex items-center gap-3">
             <div class="w-16 h-16 rounded-2xl overflow-hidden border border-slate-200 bg-white">
-              <img
-                src="{{ auth()->user()->image_url
-                  ? asset('storage/' . auth()->user()->image_url)
-                  : asset('images/default-avatar.png') }}"
-                class="w-full h-full object-cover"
-                alt="Avatar"
-              >
+              <!-- <img src="{{ auth()->user()->image_url}}"> -->
+              <img src="{{ asset('storage/' . auth()->user()->image_url)}}" class="w-full h-full object-cover">
             </div>
             <div class="text-sm text-slate-600">
               <p class="font-semibold">{{ auth()->user()->name }}</p>
