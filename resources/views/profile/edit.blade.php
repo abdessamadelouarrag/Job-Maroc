@@ -110,6 +110,7 @@
         <input
           type="specialite"
           name="specialite"
+          value="{{ old('specialite', auth()->user()->specialite) }}"
           placeholder="Ajouter votre specialite"
           required
           class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
@@ -127,7 +128,7 @@
           placeholder="Ajouter votre description"
           required
           class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-        ></textarea>
+        >{{ old('bio', auth()->user()->bio)}}</textarea>
         @error('')
           <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
         @enderror

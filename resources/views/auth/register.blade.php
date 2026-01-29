@@ -144,7 +144,7 @@
                 </div>
               </div>
 
-              {{-- ✅ Breeze Register form --}}
+              {{-- Breeze Register form --}}
               <form class="mt-6 space-y-4" method="POST" action="{{ route('register') }}">
                 @csrf
 
