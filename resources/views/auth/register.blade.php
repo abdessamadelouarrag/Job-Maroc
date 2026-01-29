@@ -195,36 +195,6 @@
                   @enderror
                 </div>
 
-                <!-- Specialty / Company (custom fields) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-sm font-medium text-slate-700">Spécialité</label>
-                    <input
-                      type="text"
-                      name="specialty"
-                      value="{{ old('specialty') }}"
-                      placeholder="ex: Laravel"
-                      class="mt-1 w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300 transition"
-                    />
-                    @error('specialty')
-                      <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-slate-700">Entreprise</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value="{{ old('company') }}"
-                      placeholder="ex: YouCode"
-                      class="mt-1 w-full px-3 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300 transition"
-                    />
-                    @error('company')
-                      <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                  </div>
-                </div>
-
                 <!-- Password -->
                 <div>
                   <label class="block text-sm font-medium text-slate-700">Mot de passe</label>
