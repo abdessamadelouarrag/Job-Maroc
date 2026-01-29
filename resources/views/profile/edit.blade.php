@@ -105,6 +105,34 @@
         @enderror
       </div>
 
+      <div>
+        <label class="block text-sm font-medium text-slate-700">Specialite</label>
+        <input
+          type="specialite"
+          name="specialite"
+          placeholder="Ajouter votre specialite"
+          required
+          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
+        >
+        @error('')
+          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+        @enderror
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700">Bio</label>
+        <textarea
+          type="Bio"
+          name="Bio"
+          placeholder="Ajouter votre description"
+          required
+          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
+        ></textarea>
+        @error('')
+          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+        @enderror
+      </div>
+
       <div class="flex items-center gap-3">
         <button class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg shadow-brand-600/20">
           Save
