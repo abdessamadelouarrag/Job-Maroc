@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('image_url')
-                ->default('storage\app\public\profiles\avatars\userprofil.jpg')
+                ->default('profiles/avatars/userprofil.jpg')
                 ->change();
         });
     }
@@ -19,7 +19,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('image_url')
-                ->default('storage/app/public/profiles/avatars/userprofil.jpg')
+                ->default('profiles/avatars/userprofil.jpg')
                 ->change();
         });
     }
