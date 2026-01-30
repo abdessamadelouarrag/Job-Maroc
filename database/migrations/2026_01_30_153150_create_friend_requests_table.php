@@ -8,12 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('friends_requests', function (Blueprint $table) {
+        Schema::create('friend_requests', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('sender_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('receiver_id')->constrained('users')->cascadeOnDelete();
-
             $table->string('status')->default('pending');
             $table->timestamps();
 
@@ -23,6 +21,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('friends_requests');
+        Schema::dropIfExists('friend_requests');
     }
+
 };

@@ -380,24 +380,14 @@
           <p class="text-sm text-slate-500 mt-1">Suggestions (static)</p>
 
           <div class="mt-4 space-y-3">
-            @php
-              $friends = [
-                ['name' => 'Sara El Amrani', 'role' => 'UI/UX Designer'],
-                ['name' => 'Youssef Benali', 'role' => 'Laravel Developer'],
-                ['name' => 'Imane Zahraoui', 'role' => 'Recruiter'],
-                ['name' => 'Hamza Ait', 'role' => 'Data Analyst'],
-              ];
-            @endphp
 
-            @foreach($friends as $f)
               <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-3 hover:bg-slate-50 transition">
                 <div class="flex items-center gap-3">
                   <div class="w-11 h-11 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center font-extrabold text-slate-700">
-                    {{ strtoupper(substr($f['name'], 0, 1)) }}
                   </div>
                   <div>
-                    <p class="text-sm font-bold text-ink-900">{{ $f['name'] }}</p>
-                    <p class="text-xs text-slate-500">{{ $f['role'] }}</p>
+                    <p class="text-sm font-bold text-ink-900">name</p>
+                    <p class="text-xs text-slate-500">role</p>
                   </div>
                 </div>
                 <button class="inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
@@ -408,7 +398,6 @@
                   Add
                 </button>
               </div>
-            @endforeach
           </div>
         </div>
 

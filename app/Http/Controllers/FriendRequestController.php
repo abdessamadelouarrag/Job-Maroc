@@ -35,4 +35,15 @@ class FriendRequestController extends Controller
 
         return back()->with('success', 'Demande envoyée');
     }
+
+    public function index()
+    {
+        $requests = FriendRequest::where('receiver_id', auth()->id())
+            ->where('status', 'pending')
+            ->with('sender')
+            ->get();
+
+        return view('friends.requests', compact('requests'));
+    }
+
 }
