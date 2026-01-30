@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::post('/upload-image', [UserController::class, 'uploadImage'])->name('upload.image');
     Route::get('/search', [SearchController::class, 'index'])->name('search');
-    Route::post('/friends/request/{user}', [FriendController::class, 'send'])
+    Route::post('/friends/request/{user}', [FriendRequestController::class, 'store'])
     ->middleware('auth')
     ->name('friends.request');
 
