@@ -175,19 +175,20 @@
               </div>
 
               {{-- Action --}}
-              <div class="shrink-0">
-                <a href="?{{auth()->user()->id}}&friend={{ $user->id }}">
-                    <button
+             <div class="shrink-0">
+              <form method="POST" action="{{ route('friends.request', $user->id) }}">
+                @csrf
+                <button
+                  type="submit"
                   class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
                          border border-slate-200 bg-white hover:bg-slate-50 transition">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M18 9v3m0 0v3m0-3h3m-3 0h-3M15 21H9a2 2 0 01-2-2V5a2 2 0 012-2h6a2 2 0 012 2v4" />
+                          d="M18 9v3m0 0v3m-3 0h-3m3 0h3M15 21H9a2 2 0 01-2-2V5a2 2 0 012-2h6a2 2 0 012 2v4" />
                   </svg>
-                  Se connecter
+                  Ajouter
                 </button>
-
-                </a>
+              </form>
             </div>
 
             </div>
