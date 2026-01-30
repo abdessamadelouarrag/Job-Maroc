@@ -176,7 +176,7 @@
 
               {{-- Action --}}
               <div class="shrink-0">
-                <a href="?{{ $user->id }}">
+                <a href="?{{auth()->user()->id}}&friend={{ $user->id }}">
                     <button
                   class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
                          border border-slate-200 bg-white hover:bg-slate-50 transition">

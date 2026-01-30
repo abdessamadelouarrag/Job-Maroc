@@ -48,6 +48,7 @@ class User extends Authenticatable
 
     public function scopeSearchUser($query, $usersearch)
     {
-        return $query->where('name', 'like', "%{$usersearch}%");
+        return $query->where('name', 'like', "%{$usersearch}%")
+                    ->where('id', '!=', Auth::id());
     }
 }
