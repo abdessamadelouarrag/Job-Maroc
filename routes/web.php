@@ -25,8 +25,6 @@
         Route::post('/friends/request/{user}', [FriendRequestController::class, 'store'])
         ->middleware('auth')
         ->name('friends.request');
-
-
     });
 
     require __DIR__.'/auth.php';
