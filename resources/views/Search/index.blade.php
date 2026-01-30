@@ -176,7 +176,8 @@
 
               {{-- Action --}}
               <div class="shrink-0">
-                <button
+                <a href="?{{ $user->id }}">
+                    <button
                   class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
                          border border-slate-200 bg-white hover:bg-slate-50 transition">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -185,7 +186,9 @@
                   </svg>
                   Se connecter
                 </button>
-              </div>
+
+                </a>
+            </div>
 
             </div>
           </div>
