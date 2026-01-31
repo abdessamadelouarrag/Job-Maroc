@@ -28,9 +28,9 @@
     <h2 class="mt-4 text-lg font-extrabold text-slate-900">{{ $offre->title }}</h2>
 
     <div class="mt-2 flex flex-wrap gap-2 text-xs">
-      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">📍 {{ $offre->place }}</span>
-      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">⏱️ {{ strtoupper($offre->type_offer) }}</span>
-      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">🗓️ {{ $offre->created_at?->format('d/m/Y') }}</span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600"> {{ $offre->place }}</span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600"> {{ strtoupper($offre->type_offer) }}</span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600"> {{ $offre->created_at?->format('d/m/Y') }}</span>
     </div>
 
     <p class="mt-4 text-sm text-slate-700 leading-relaxed">
