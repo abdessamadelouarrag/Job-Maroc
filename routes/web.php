@@ -23,8 +23,11 @@
         Route::post('/upload-image', [UserController::class, 'uploadImage'])->name('upload.image');
         Route::get('/search', [SearchController::class, 'index'])->name('search');
         Route::post('/friends/request/{user}', [FriendRequestController::class, 'store'])
-        ->middleware('auth')
-        ->name('friends.request');
+            ->middleware('auth')
+            ->name('friends.request');
+        Route::get('/users/{user}', [UserController::class, 'show'])
+            ->middleware('auth')
+            ->name('users.show');
     });
 
-    require __DIR__.'/auth.php';
+    require __DIR__ . '/auth.php';

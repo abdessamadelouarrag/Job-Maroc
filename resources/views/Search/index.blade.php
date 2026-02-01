@@ -153,7 +153,9 @@
 
               {{-- Avatar --}}
               <div class="w-14 h-14 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shrink-0">
-                <img src="{{ asset('storage/' . $user->image_url) }}" class="w-full h-full object-cover" alt="">
+                <a href="{{ route('users.show', $user->id)}}">
+                  <img src="{{ asset('storage/' . $user->image_url) }}" class="w-full h-full object-cover" alt="">
+                </a>  
               </div>
 
               {{-- Info --}}
