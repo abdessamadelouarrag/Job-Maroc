@@ -28,6 +28,10 @@
         Route::get('/users/{user}', [UserController::class, 'show'])
             ->middleware('auth')
             ->name('users.show');
+        Route::post('/friend-requests/{user}', [FriendRequestController::class, 'store'])
+            ->name('friend-requests.store');
+        Route::get('/friend-requests', [FriendRequestController::class, 'index'])
+            ->name('friend-requests.index');
     });
 
     require __DIR__ . '/auth.php';

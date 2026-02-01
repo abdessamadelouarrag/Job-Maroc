@@ -1,6 +1,7 @@
 {{-- resources/views/search/index.blade.php --}}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,10 +16,12 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
           colors: {
             brand: {
-              50:  '#ecfeff',
+              50: '#ecfeff',
               100: '#cffafe',
               200: '#a5f3fc',
               500: '#06b6d4',
@@ -59,7 +62,7 @@
           <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-cyan-500 to-indigo-600 shadow-soft flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
           <div>
@@ -70,7 +73,7 @@
 
         <div class="flex items-center gap-2">
           <a href="{{ url('/dashboard') }}"
-             class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
+            class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
                     border border-slate-200 bg-white/70 hover:bg-white transition">
             ← Retour
           </a>
@@ -105,13 +108,12 @@
             name="q"
             value="{{ $usersearch ?? '' }}"
             placeholder="Rechercher un utilisateur (nom/email)..."
-            class="w-full bg-transparent outline-none text-slate-800 placeholder-slate-400"
-          />
+            class="w-full bg-transparent outline-none text-slate-800 placeholder-slate-400" />
 
           <button type="submit" class="h-10 w-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
+                d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </button>
 
@@ -125,9 +127,9 @@
         <h2 class="text-xl font-extrabold text-ink-900">Personnes</h2>
         <p class="text-sm text-slate-500">
           @if(!empty($usersearch))
-            Résultats pour “{{ $usersearch }}”
+          Résultats pour “{{ $usersearch }}”
           @else
-            Tape un mot-clé pour chercher.
+          Tape un mot-clé pour chercher.
           @endif
         </p>
       </div>
@@ -148,58 +150,65 @@
       <div class="divide-y divide-slate-200/60">
 
         @forelse($users as $user)
-          <div class="p-5 hover:bg-white/50 transition">
-            <div class="flex items-center gap-4">
+        <div class="p-5 hover:bg-white/50 transition">
+          <div class="flex items-center gap-4">
 
-              {{-- Avatar --}}
-              <div class="w-14 h-14 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shrink-0">
-                <a href="{{ route('users.show', $user->id)}}">
-                  <img src="{{ asset('storage/' . $user->image_url) }}" class="w-full h-full object-cover" alt="">
-                </a>  
-              </div>
-
-              {{-- Info --}}
-              <div class="min-w-0 flex-1">
-                <div class="flex items-center gap-2">
-                  <p class="font-extrabold text-ink-900 truncate">{{ $user->name }}</p>
-                  <span class="text-xs text-slate-500">•</span>
-                  <span class="text-xs text-slate-500 truncate">{{ $user->email }}</span>
-                </div>
-
-                {{-- Subtitle (static for now) --}}
-                <p class="text-sm text-slate-600 truncate mt-0.5">
-                  Full Stack Developer • Laravel / React • Morocco
-                </p>
-
-                <p class="text-xs text-slate-500 mt-1">
-                  Casablanca et périphérie
-                </p>
-              </div>
-
-              {{-- Action --}}
-             <div class="shrink-0">
-              <form method="POST" action="{{ route('friends.request', $user->id) }}">
-                @csrf
-                <button
-                  type="submit"
-                  class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
-                         border border-slate-200 bg-white hover:bg-slate-50 transition">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M18 9v3m0 0v3m-3 0h-3m3 0h3M15 21H9a2 2 0 01-2-2V5a2 2 0 012-2h6a2 2 0 012 2v4" />
-                  </svg>
-                  Ajouter
-                </button>
-              </form>
+            {{-- Avatar --}}
+            <div class="w-14 h-14 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shrink-0">
+              <a href="{{ route('users.show', $user->id)}}">
+                <img src="{{ asset('storage/' . $user->image_url) }}" class="w-full h-full object-cover" alt="">
+              </a>
             </div>
 
+            {{-- Info --}}
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <p class="font-extrabold text-ink-900 truncate">{{ $user->name }}</p>
+                <span class="text-xs text-slate-500">•</span>
+                <span class="text-xs text-slate-500 truncate">{{ $user->email }}</span>
+              </div>
+
+              {{-- Subtitle (static for now) --}}
+              <p class="text-sm text-slate-600 truncate mt-0.5">
+                Full Stack Developer • Laravel / React • Morocco
+              </p>
+
+              <p class="text-xs text-slate-500 mt-1">
+                Casablanca et périphérie
+              </p>
             </div>
+
+            {{-- Action --}}
+            <div class="shrink-0">
+              @if(auth()->check() && auth()->id() !== $user->id)
+
+  @php $exists = $existsMap[$user->id] ?? false; @endphp
+
+  @if(!$exists)
+    <form action="{{ route('friend-requests.store', $user->id) }}" method="POST">
+      @csrf
+      <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white">
+        Se Connecter
+      </button>
+    </form>
+  @else
+    <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 cursor-not-allowed" disabled>
+      Demande déjà envoyée / Déjà amis
+    </button>
+  @endif
+
+@endif
+
+            </div>
+
+
           </div>
+        </div>
         @empty
-          <div class="p-8 text-center">
-            <p class="text-slate-600 font-semibold">Aucun résultat.</p>
-            <p class="text-sm text-slate-500 mt-1">Essaie un autre mot-clé.</p>
-          </div>
+        <div class="p-8 text-center">
+          <p class="text-slate-600 font-semibold">Aucun résultat.</p>
+          <p class="text-sm text-slate-500 mt-1">Essaie un autre mot-clé.</p>
+        </div>
         @endforelse
 
       </div>
@@ -213,4 +222,5 @@
   </main>
 
 </body>
+
 </html>

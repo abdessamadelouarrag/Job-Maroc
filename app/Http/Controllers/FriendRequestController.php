@@ -54,12 +54,11 @@ class FriendRequestController extends Controller
 
         $exists = false;
 
-        if (Auth::check() && $me !== $profileUserId) {
+        if (auth()->check() && $me !== $profileUserId) {
             $exists = FriendRequest::betweenUsers($me, $profileUserId)
                 ->whereIn('status', ['pending', 'accepted'])
                 ->exists();
         }
-
 
         return view('profile.show', compact('profileUserId', 'exists'));
     }
