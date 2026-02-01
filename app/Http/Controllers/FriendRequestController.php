@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\FriendRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FriendRequestController extends Controller
 {
@@ -46,4 +47,20 @@ class FriendRequestController extends Controller
         return view('friends.requests', compact('requests'));
     }
 
+    public function show($id)
+    {
+        $profileUserId = (int) $id;
+        $me = auth()->id();
+
+        $exists = false;
+
+        if (Auth::check() && $me !== $profileUserId) {
+            $exists = FriendRequest::betweenUsers($me, $profileUserId)
+                ->whereIn('status', ['pending', 'accepted'])
+                ->exists();
+        }
+
+
+        return view('profile.show', compact('profileUserId', 'exists'));
+    }
 }

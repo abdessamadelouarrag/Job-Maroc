@@ -19,5 +19,13 @@ class FriendRequest extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
+    public function scopeBetweenUsers($query, $userA, $userB)
+{
+    return $query->where(function ($q) use ($userA, $userB) {
+        $q->where('sender_id', $userA)->where('receiver_id', $userB);
+    })->orWhere(function ($q) use ($userA, $userB) {
+        $q->where('sender_id', $userB)->where('receiver_id', $userA);
+    });
 }
 
+}
