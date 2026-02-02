@@ -129,7 +129,7 @@
         <div class="w-full h-full bg-gradient-to-r from-slate-900 via-slate-700 to-cyan-700"></div>
       @endif
 
-      {{-- Light overlay فقط باش النص يبقى واضح --}}
+      {{-- Light overlay --}}
       <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
     </div>
 
@@ -153,7 +153,7 @@
 
           {{-- Text --}}
           <div class="pb-1">
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight bg-white/30 p-1 rounded-xl">
               {{ $user->name }}
             </h1>
 

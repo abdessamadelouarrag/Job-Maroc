@@ -50,7 +50,7 @@
   {{-- Header card --}}
   <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
     <div class="h-28 bg-cover bg-center overflow-hidden">
-        <img class="h-full w-full object-cover" src="{{ asset('storage/' . auth()->user()->banner_url)}}">
+        <img class="h-full w-full object-cover" src="{{ auth()->user()->banner_url}}">
     </div>
 
     <div class="p-6">
