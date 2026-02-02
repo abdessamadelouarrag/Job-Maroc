@@ -106,21 +106,6 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-slate-700">Specialite</label>
-        <input
-          type="text"
-          name="specialite"
-          value="{{ old('specialite', auth()->user()->specialite) }}"
-          placeholder="Ajouter votre specialite"
-          required
-          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-        >
-        @error('specialite')
-          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-        @enderror
-      </div>
-
-      <div>
         <label class="block text-sm font-medium text-slate-700">Bio</label>
         <textarea
           name="bio"
@@ -205,404 +190,179 @@
     </form>
   </section>
 
-  {{-- 3) Formations / Expériences / Compétences (DYNAMIC) --}}
-  <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-    <div class="flex items-start justify-between gap-4">
-      <div>
-        <h2 class="text-lg font-bold text-slate-900">Career details</h2>
-        <p class="text-sm text-slate-500 mt-1">
-          Ajoute tes formations, expériences et compétences. Tu peux en ajouter plusieurs.
-        </p>
+<section class="max-w-5xl mx-auto px-4 py-8 space-y-6 bg-slate-100">
+
+  <!-- EXPERIENCE -->
+  <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+    <div class="p-5 flex items-center justify-between">
+      <h3 class="text-lg font-bold text-slate-900">Experience</h3>
+      <button class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
+    </div>
+
+    <div class="border-t border-slate-200">
+      <!-- item 1 -->
+      <div class="p-5 flex gap-4">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
+          A
+        </div>
+
+        <div class="flex-1">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="font-bold text-slate-900 leading-tight">Full Stack Web Developer</p>
+              <p class="text-sm text-slate-700">Azura Group · Internship</p>
+              <p class="text-xs text-slate-500 mt-1">May 2026 — Present · Casablanca, Morocco</p>
+            </div>
+
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              Current
+            </span>
+          </div>
+
+          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
+            Worked on a Laravel platform with authentication, profile management, and search.
+            Built clean UI components with Tailwind and improved database structure.
+          </p>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">Laravel</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">PostgreSQL</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">Tailwind</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">REST APIs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-200"></div>
+
+      <!-- item 2 -->
+      <div class="p-5 flex gap-4">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
+          Y
+        </div>
+
+        <div class="flex-1">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="font-bold text-slate-900 leading-tight">Backend Developer (Student Projects)</p>
+              <p class="text-sm text-slate-700">YouCode UM6P · Projects</p>
+              <p class="text-xs text-slate-500 mt-1">Oct 2024 — Apr 2026 · Safi, Morocco</p>
+            </div>
+
+            <button class="text-slate-400 hover:text-slate-600" title="More">
+              <span class="text-xl leading-none">⋯</span>
+            </button>
+          </div>
+
+          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
+            Developed multiple web apps using MVC principles. Focused on backend logic,
+            database migrations, and clean code organization.
+          </p>
+        </div>
       </div>
     </div>
 
-    <form method="POST" action="" class="mt-6 space-y-8">
-      @csrf
-      @method('PUT')
-
-      {{-- EDUCATION --}}
-      <div>
-        <div class="flex items-center justify-between">
-          <h3 class="font-bold text-slate-900">Formations</h3>
-          <button type="button" id="add-education"
-            class="text-sm font-semibold text-brand-600 hover:text-brand-700">
-            + Ajouter une formation
-          </button>
-        </div>
-
-        <div id="education-list" class="mt-4 space-y-3">
-          @php
-            // Option 1: controller passes $educations (array)
-            // Option 2: if you store JSON in user->educations, decode it in controller and pass it
-            $educations = old('education', $educations ?? []);
-          @endphp
-
-          @forelse($educations as $i => $edu)
-            <div class="edu-item rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div class="flex items-start justify-between gap-3">
-                <p class="text-sm font-semibold text-slate-900">Formation #{{ $i+1 }}</p>
-                <button type="button" class="remove-item text-xs font-bold text-red-600 hover:text-red-700">Supprimer</button>
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">École / Organisme</label>
-                  <input type="text" name="education[{{ $i }}][school]" value="{{ $edu['school'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="YouCode / UM6P ...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Diplôme / Titre</label>
-                  <input type="text" name="education[{{ $i }}][degree]" value="{{ $edu['degree'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Développement Web ...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Début</label>
-                  <input type="month" name="education[{{ $i }}][start]" value="{{ $edu['start'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Fin (optionnel)</label>
-                  <input type="month" name="education[{{ $i }}][end]" value="{{ $edu['end'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div class="md:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-600">Description (optionnel)</label>
-                  <textarea name="education[{{ $i }}][description]"
-                    class="mt-1 w-full min-h-[90px] px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Modules, projets, etc...">{{ $edu['description'] ?? '' }}</textarea>
-                </div>
-              </div>
-            </div>
-          @empty
-            {{-- Default empty row --}}
-            <div class="edu-item rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div class="flex items-start justify-between gap-3">
-                <p class="text-sm font-semibold text-slate-900">Formation #1</p>
-                <button type="button" class="remove-item text-xs font-bold text-red-600 hover:text-red-700">Supprimer</button>
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">École / Organisme</label>
-                  <input type="text" name="education[0][school]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="YouCode / UM6P ...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Diplôme / Titre</label>
-                  <input type="text" name="education[0][degree]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Développement Web ...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Début</label>
-                  <input type="month" name="education[0][start]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Fin (optionnel)</label>
-                  <input type="month" name="education[0][end]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div class="md:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-600">Description (optionnel)</label>
-                  <textarea name="education[0][description]"
-                    class="mt-1 w-full min-h-[90px] px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Modules, projets, etc..."></textarea>
-                </div>
-              </div>
-            </div>
-          @endforelse
-        </div>
-      </div>
-
-      {{-- EXPERIENCES --}}
-      <div>
-        <div class="flex items-center justify-between">
-          <h3 class="font-bold text-slate-900">Expériences</h3>
-          <button type="button" id="add-experience"
-            class="text-sm font-semibold text-brand-600 hover:text-brand-700">
-            + Ajouter une expérience
-          </button>
-        </div>
-
-        <div id="experience-list" class="mt-4 space-y-3">
-          @php
-            $experiences = old('experiences', $experiences ?? []);
-          @endphp
-
-          @forelse($experiences as $i => $exp)
-            <div class="exp-item rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div class="flex items-start justify-between gap-3">
-                <p class="text-sm font-semibold text-slate-900">Expérience #{{ $i+1 }}</p>
-                <button type="button" class="remove-item text-xs font-bold text-red-600 hover:text-red-700">Supprimer</button>
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Entreprise</label>
-                  <input type="text" name="experiences[{{ $i }}][company]" value="{{ $exp['company'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Nom de l'entreprise">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Poste</label>
-                  <input type="text" name="experiences[{{ $i }}][title]" value="{{ $exp['title'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Full Stack Developer ...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Début</label>
-                  <input type="month" name="experiences[{{ $i }}][start]" value="{{ $exp['start'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Fin (optionnel)</label>
-                  <input type="month" name="experiences[{{ $i }}][end]" value="{{ $exp['end'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div class="md:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-600">Missions</label>
-                  <textarea name="experiences[{{ $i }}][description]"
-                    class="mt-1 w-full min-h-[90px] px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Ce que tu as fait...">{{ $exp['description'] ?? '' }}</textarea>
-                </div>
-              </div>
-            </div>
-          @empty
-            <div class="exp-item rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div class="flex items-start justify-between gap-3">
-                <p class="text-sm font-semibold text-slate-900">Expérience #1</p>
-                <button type="button" class="remove-item text-xs font-bold text-red-600 hover:text-red-700">Supprimer</button>
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Entreprise</label>
-                  <input type="text" name="experiences[0][company]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Nom de l'entreprise">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Poste</label>
-                  <input type="text" name="experiences[0][title]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Full Stack Developer ...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Début</label>
-                  <input type="month" name="experiences[0][start]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Fin (optionnel)</label>
-                  <input type="month" name="experiences[0][end]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                </div>
-
-                <div class="md:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-600">Missions</label>
-                  <textarea name="experiences[0][description]"
-                    class="mt-1 w-full min-h-[90px] px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Ce que tu as fait..."></textarea>
-                </div>
-              </div>
-            </div>
-          @endforelse
-        </div>
-      </div>
-
-      {{-- SKILLS --}}
-      <div>
-        <div class="flex items-center justify-between">
-          <h3 class="font-bold text-slate-900">Compétences</h3>
-          <button type="button" id="add-skill"
-            class="text-sm font-semibold text-brand-600 hover:text-brand-700">
-            + Ajouter une compétence
-          </button>
-        </div>
-
-        <div id="skills-list" class="mt-4 space-y-3">
-          @php
-            $skills = old('skills', $skills ?? []);
-          @endphp
-
-          @forelse($skills as $i => $sk)
-            <div class="skill-item rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div class="flex items-start justify-between gap-3">
-                <p class="text-sm font-semibold text-slate-900">Compétence #{{ $i+1 }}</p>
-                <button type="button" class="remove-item text-xs font-bold text-red-600 hover:text-red-700">Supprimer</button>
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div class="md:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-600">Nom</label>
-                  <input type="text" name="skills[{{ $i }}][name]" value="{{ $sk['name'] ?? '' }}"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Laravel, Tailwind, PostgreSQL...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Niveau</label>
-                  <select name="skills[{{ $i }}][level]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                    @php $lvl = $sk['level'] ?? 'intermediate'; @endphp
-                    <option value="beginner" {{ $lvl==='beginner' ? 'selected' : '' }}>Beginner</option>
-                    <option value="intermediate" {{ $lvl==='intermediate' ? 'selected' : '' }}>Intermediate</option>
-                    <option value="advanced" {{ $lvl==='advanced' ? 'selected' : '' }}>Advanced</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          @empty
-            <div class="skill-item rounded-2xl border border-slate-200 p-4 bg-slate-50">
-              <div class="flex items-start justify-between gap-3">
-                <p class="text-sm font-semibold text-slate-900">Compétence #1</p>
-                <button type="button" class="remove-item text-xs font-bold text-red-600 hover:text-red-700">Supprimer</button>
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div class="md:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-600">Nom</label>
-                  <input type="text" name="skills[0][name]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-                    placeholder="Laravel, Tailwind, PostgreSQL...">
-                </div>
-
-                <div>
-                  <label class="block text-xs font-semibold text-slate-600">Niveau</label>
-                  <select name="skills[0][level]"
-                    class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300">
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate" selected>Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          @endforelse
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3 pt-2">
-        <button class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg shadow-brand-600/20">
-          Save career details
-        </button>
-
-        @if (session('status') === 'career-updated')
-          <span class="text-sm text-green-600 font-semibold">Saved</span>
-        @endif
-      </div>
-
-      <p class="text-xs text-slate-500">
-        Laravel recevra: <code class="font-mono">education[]</code>, <code class="font-mono">experiences[]</code>, <code class="font-mono">skills[]</code>.
-      </p>
-    </form>
-  </section>
-
-  {{-- 4) Update Password --}}
-  <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-    <h2 class="text-lg font-bold text-slate-900">Reset password</h2>
-    <p class="text-sm text-slate-500 mt-1">Change your current password.</p>
-
-    <form method="POST" action="" class="mt-6 space-y-4">
-      @csrf
-      @method('PUT')
-
-      <div>
-        <label class="block text-sm font-medium text-slate-700">Current password</label>
-        <input
-          type="password"
-          name="current_password"
-          required
-          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-        >
-        @error('current_password')
-          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-        @enderror
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-slate-700">New password</label>
-        <input
-          type="password"
-          name="password"
-          required
-          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-        >
-        @error('password')
-          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-        @enderror
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium text-slate-700">Confirm new password</label>
-        <input
-          type="password"
-          name="password_confirmation"
-          required
-          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-brand-100 focus:border-brand-300"
-        >
-      </div>
-
-      <div class="flex items-center gap-3">
-        <button class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg shadow-brand-600/20">
-          Update password
-        </button>
-
-        @if (session('status') === 'password-updated')
-          <span class="text-sm text-green-600 font-semibold">Password updated ✅</span>
-        @endif
-      </div>
-    </form>
-  </section>
-
-  {{-- 5) Delete Account --}}
-  <section class="bg-white border border-red-200 rounded-2xl p-6 shadow-sm">
-    <h2 class="text-lg font-bold text-red-700">Delete account</h2>
-    <p class="text-sm text-slate-600 mt-1">
-      This action is permanent. Please confirm your password.
-    </p>
-
-    <form method="POST" action="{{ route('profile.destroy') }}" class="mt-6 space-y-4">
-      @csrf
-      @method('DELETE')
-
-      <div>
-        <label class="block text-sm font-medium text-slate-700">Password</label>
-        <input
-          type="password"
-          name="password"
-          required
-          class="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-300"
-        >
-        @error('password')
-          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-        @enderror
-      </div>
-
-      <button class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg shadow-red-600/20">
-        Delete my account
+    <div class="px-5 py-4 bg-slate-50 border-t border-slate-200">
+      <button class="text-sm font-semibold text-slate-700 hover:text-slate-900">
+        Show all experience →
       </button>
-    </form>
-  </section>
+    </div>
+  </div>
+
+
+  <!-- EDUCATION -->
+  <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+    <div class="p-5 flex items-center justify-between">
+      <h3 class="text-lg font-bold text-slate-900">Education</h3>
+      <button class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
+    </div>
+
+    <div class="border-t border-slate-200">
+      <!-- item 1 -->
+      <div class="p-5 flex gap-4">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600">
+          🎓
+        </div>
+
+        <div class="flex-1">
+          <p class="font-bold text-slate-900 leading-tight">YouCode — UM6P</p>
+          <p class="text-sm text-slate-700">Web Development Program</p>
+          <p class="text-xs text-slate-500 mt-1">2024 — 2026 · Safi, Morocco</p>
+
+          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
+            Focused on full-stack development with Laravel, PostgreSQL, and modern UI.
+            Built team projects with GitHub workflow and clean architecture.
+          </p>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">OOP</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">MVC</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">Git/GitHub</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-200"></div>
+
+      <!-- item 2 -->
+      <div class="p-5 flex gap-4">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
+          C
+        </div>
+
+        <div class="flex-1">
+          <p class="font-bold text-slate-900 leading-tight">Certification</p>
+          <p class="text-sm text-slate-700">Responsive Web Design</p>
+          <p class="text-xs text-slate-500 mt-1">2025</p>
+
+          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
+            Built responsive layouts and improved UI consistency with modern CSS utilities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SKILLS -->
+  <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+    <div class="p-5 flex items-center justify-between">
+      <h3 class="text-lg font-bold text-slate-900">Skills</h3>
+      <button class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
+    </div>
+
+    <div class="border-t border-slate-200 p-5">
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
+          Laravel <span class="text-xs font-bold text-slate-500">(Advanced)</span>
+        </span>
+        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
+          PHP <span class="text-xs font-bold text-slate-500">(Advanced)</span>
+        </span>
+        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
+          PostgreSQL <span class="text-xs font-bold text-slate-500">(Intermediate)</span>
+        </span>
+        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
+          Tailwind CSS <span class="text-xs font-bold text-slate-500">(Advanced)</span>
+        </span>
+        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
+          REST APIs <span class="text-xs font-bold text-slate-500">(Intermediate)</span>
+        </span>
+        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
+          Git/GitHub <span class="text-xs font-bold text-slate-500">(Intermediate)</span>
+        </span>
+      </div>
+
+      <div class="mt-4">
+        <button class="text-sm font-semibold text-slate-700 hover:text-slate-900">
+          Show all skills →
+        </button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
 
 </main>
 
