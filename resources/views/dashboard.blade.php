@@ -441,23 +441,44 @@
 
           <div class="mt-4 space-y-3">
 
-            <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-3 hover:bg-slate-50 transition hover:-translate-y-[1px]">
-              <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center font-extrabold text-slate-700">
-                </div>
-                <div>
-                  <p class="text-sm font-bold text-ink-900">name</p>
-                  <p class="text-xs text-slate-500">role</p>
-                </div>
-              </div>
+            @forelse($requests as $req)
+        <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-3 hover:bg-slate-50 transition hover:-translate-y-[1px]">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center font-extrabold text-slate-700">
+              {{ strtoupper(substr($req->sender->name, 0, 1)) }}
+            </div>
+
+            <div>
+              <p class="text-sm font-bold text-ink-900">{{ $req->sender->name }}</p>
+              <p class="text-xs text-slate-500">{{ $req->sender->role ?? 'user' }}</p>
+            </div>
+          </div>
+
+          {{-- بدل زر Add بـ Accept/Refuse حيت هادي demande جاتك --}}
+          <div class="flex items-center gap-2">
+            <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
+              @csrf
+              @method('PATCH')
               <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
                              border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-600 transition group-hover:rotate-[2deg]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-                Add
+                Accept
               </button>
-            </div>
+            </form>
+
+            <form method="POST" action="{{ route('friend-requests.refuse', $req->id) }}">
+              @csrf
+              @method('PATCH')
+              <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
+                             border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
+                Refuse
+              </button>
+            </form>
+          </div>
+        </div>
+      @empty
+        <p class="text-sm text-slate-500">Ma kaynach demandes d'amis daba.</p>
+      @endforelse
+
 
           </div>
         </div>

@@ -22,12 +22,17 @@ class FriendRequest extends Model
     }
 
     public function scopeBetweenUsers($query, $userA, $userB)
-{
-    return $query->where(function ($q) use ($userA, $userB) {
-        $q->where('sender_id', $userA)->where('receiver_id', $userB);
-    })->orWhere(function ($q) use ($userA, $userB) {
-        $q->where('sender_id', $userB)->where('receiver_id', $userA);
-    });
-}
+    {
+        return $query->where(function ($q) use ($userA, $userB) {
+            $q->where('sender_id', $userA)->where('receiver_id', $userB);
+        })->orWhere(function ($q) use ($userA, $userB) {
+            $q->where('sender_id', $userB)->where('receiver_id', $userA);
+        });
+    }
+
+    public function myRequestsFriendes($query){
+        return $query->where('receiver_id', Auth::id())
+                    ->where('status', 'pending');
+    }
 
 }

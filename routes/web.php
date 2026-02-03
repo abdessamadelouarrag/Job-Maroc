@@ -32,6 +32,8 @@
             ->name('friend-requests.store');
         Route::get('/friend-requests', [FriendRequestController::class, 'index'])
             ->name('friend-requests.index');
-    });
+        Route::get('/friend-requests/all', [FriendRequestController::class, 'allRequests'])
+            ->name('friend-requests.all');
 
+    });
     require __DIR__ . '/auth.php';

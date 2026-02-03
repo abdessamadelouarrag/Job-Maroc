@@ -62,4 +62,18 @@ class FriendRequestController extends Controller
 
         return view('profile.show', compact('profileUserId', 'exists'));
     }
+
+    public function allRequests()
+    {
+        $userId = auth()->id();
+
+        $requests = FriendRequest::where('receiver_id', auth()->id())
+        ->where('status', 'pending')
+        ->with('sender')
+        ->latest()
+        ->get();
+
+        return view('dashboard', compact('requests'));
+    }
+
 }
