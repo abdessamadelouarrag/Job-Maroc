@@ -30,9 +30,10 @@ class FriendRequest extends Model
         });
     }
 
-    public function myRequestsFriendes($query){
+    public function scopeMyRequestsFriendes($query)
+    {
         return $query->where('receiver_id', Auth::id())
-                    ->where('status', 'pending');
+                     ->where('status', 'pending');
     }
 
 }

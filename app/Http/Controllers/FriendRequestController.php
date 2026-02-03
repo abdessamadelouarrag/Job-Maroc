@@ -76,4 +76,26 @@ class FriendRequestController extends Controller
         return view('dashboard', compact('requests'));
     }
 
+    public function accept($id)
+    {
+        $req = FriendRequest::where('id', $id)
+            ->where('receiver_id', auth()->id())
+            ->firstOrFail();
+
+        $req->update(['status' => 'accepted']);
+
+        return back()->with('success', 'Demande acceptée');
+    }
+
+    public function refuse($id)
+    {
+        $req = FriendRequest::where('id', $id)
+            ->where('receiver_id', auth()->id())
+            ->firstOrFail();
+
+        $req->update(['status' => 'rejected']);
+
+        return back()->with('success', 'Demande refusée');
+    }
+
 }

@@ -400,7 +400,7 @@
           </div>
 
           <p class="mt-4 text-slate-700 text-sm leading-relaxed">
-            Astuce Laravel: organise tes views, utilise layouts, et garde ton code clean. ✅ (Post static)
+            Astuce Laravel: organise tes views, utilise layouts, et garde ton code clean. (Post static)
           </p>
 
           <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
@@ -454,7 +454,6 @@
             </div>
           </div>
 
-          {{-- بدل زر Add بـ Accept/Refuse حيت هادي demande جاتك --}}
           <div class="flex items-center gap-2">
             <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
               @csrf

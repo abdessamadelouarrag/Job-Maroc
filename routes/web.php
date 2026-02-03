@@ -11,9 +11,14 @@
         return view('welcome');
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::get('/dashboard', [FriendRequestController::class, 'allRequests'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,8 +37,11 @@
             ->name('friend-requests.store');
         Route::get('/friend-requests', [FriendRequestController::class, 'index'])
             ->name('friend-requests.index');
-        Route::get('/friend-requests/all', [FriendRequestController::class, 'allRequests'])
-            ->name('friend-requests.all');
+        Route::patch('/friend-requests/{id}/accept', [FriendRequestController::class, 'accept'])
+            ->name('friend-requests.accept');
+        Route::patch('/friend-requests/{id}/refuse', [FriendRequestController::class, 'refuse'])
+            ->name('friend-requests.refuse');
+
 
     });
     require __DIR__ . '/auth.php';
