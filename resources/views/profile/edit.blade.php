@@ -267,25 +267,43 @@
 
     <!-- LIST (Example items) -->
     <div class="border-t border-slate-200">
-      <div class="p-5 flex gap-4">
-        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
-          A
-        </div>
+  @forelse ($experiences as $experience)
+    <div class="p-5 flex gap-4">
+      <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
+        {{ strtoupper(substr($experience->name_of_experience, 0, 1)) }}
+      </div>
 
-        <div class="flex-1">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="font-bold text-slate-900 leading-tight">Full Stack Web Developer</p>
-              <p class="text-xs text-slate-500 mt-1">Start: May 2026 · End: Present</p>
-            </div>
+      <div class="flex-1">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="font-bold text-slate-900 leading-tight">
+              {{ $experience->name_of_experience }}
+            </p>
 
-            <button class="text-slate-400 hover:text-slate-600" title="More">
-              <span class="text-xl leading-none">⋯</span>
-            </button>
+            <p class="text-sm text-slate-700">
+              {{ $experience->city }}
+            </p>
+
+            <p class="text-xs text-slate-500 mt-1">
+              Start: {{ \Carbon\Carbon::parse($experience->date_start)->format('M Y') }}
+              —
+              End:
+              {{ $experience->date_end
+                  ? \Carbon\Carbon::parse($experience->date_end)->format('M Y')
+                  : 'Present'
+              }}
+            </p>
           </div>
         </div>
       </div>
     </div>
+  @empty
+    <div class="p-5 text-sm text-slate-500">
+      No experiences added yet.
+    </div>
+  @endforelse
+</div>
+
   </div>
 
 
