@@ -9,6 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <script>
@@ -442,12 +443,8 @@
           <div class="mt-4 space-y-3">
 
             @forelse($requests as $req)
-        <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-3 hover:bg-slate-50 transition hover:-translate-y-[1px]">
+        <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-blue-300/40 px-3 py-3 hover:bg-blue-200 transition hover:-translate-y-[1px]">
           <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center font-extrabold text-slate-700">
-              {{ strtoupper(substr($req->sender->name, 0, 1)) }}
-            </div>
-
             <div>
               <p class="text-sm font-bold text-ink-900">{{ $req->sender->name }}</p>
               <p class="text-xs text-slate-500">{{ $req->sender->role ?? 'user' }}</p>
@@ -459,8 +456,8 @@
               @csrf
               @method('PATCH')
               <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
-                             border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
-                Accept
+                             border border-slate-200 bg-green-600 transition active:scale-[0.99]">
+                <i class="fa-solid fa-check text-white"></i>
               </button>
             </form>
 
@@ -468,14 +465,14 @@
               @csrf
               @method('PATCH')
               <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
-                             border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
-                Refuse
+                             border border-slate-200 bg-red-600 transition active:scale-[0.99]">
+                <i class="fa-solid fa-x text-white"></i>
               </button>
             </form>
           </div>
         </div>
       @empty
-        <p class="text-sm text-slate-500">Ma kaynach demandes d'amis daba.</p>
+        <p class="text-sm text-slate-500">aucun demandes d'amis ...</p>
       @endforelse
 
 

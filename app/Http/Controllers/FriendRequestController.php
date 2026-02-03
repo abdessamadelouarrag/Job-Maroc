@@ -98,4 +98,9 @@ class FriendRequestController extends Controller
         return back()->with('success', 'Demande refusée');
     }
 
+    public function allAmis($id){
+        $all = FriendRequest::where('receiver_id', auth()->id())
+        ->where('status', 'accepted');
+    }
+
 }
