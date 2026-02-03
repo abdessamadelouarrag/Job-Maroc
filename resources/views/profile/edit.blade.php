@@ -199,8 +199,64 @@
       <button class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
     </div>
 
+    <!-- ADD EXPERIENCE FORM -->
+    <div class="border-t border-slate-200 p-5 bg-slate-50">
+      <form class="space-y-4" method="POST" action="{{ route('experience.store') }}">
+        @csrf
+        <div>
+          <label class="block text-sm font-semibold text-slate-800 mb-1">Experience name / title</label>
+          <input
+            type="text"
+            name="experience_name"
+            placeholder="Ex: Full Stack Web Developer"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-800 mb-1">City of Experince</label>
+          <input
+            type="text"
+            name="experience_city"
+            placeholder="Ex: Casablanca"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-1">Start date</label>
+            <input
+              type="date"
+              name="experience_start"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-1">End date</label>
+            <input
+              type="date"
+              name="experience_end"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            />
+            <p class="text-xs text-slate-500 mt-1">If it’s current, leave end date empty.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-1">
+          <button type="button" class="px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-100">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- LIST (Example items) -->
     <div class="border-t border-slate-200">
-      <!-- item 1 -->
       <div class="p-5 flex gap-4">
         <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
           A
@@ -210,62 +266,15 @@
           <div class="flex items-start justify-between gap-3">
             <div>
               <p class="font-bold text-slate-900 leading-tight">Full Stack Web Developer</p>
-              <p class="text-sm text-slate-700">Azura Group · Internship</p>
-              <p class="text-xs text-slate-500 mt-1">May 2026 — Present · Casablanca, Morocco</p>
-            </div>
-
-            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-              Current
-            </span>
-          </div>
-
-          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
-            Worked on a Laravel platform with authentication, profile management, and search.
-            Built clean UI components with Tailwind and improved database structure.
-          </p>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">Laravel</span>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">PostgreSQL</span>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">Tailwind</span>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">REST APIs</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-t border-slate-200"></div>
-
-      <!-- item 2 -->
-      <div class="p-5 flex gap-4">
-        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
-          Y
-        </div>
-
-        <div class="flex-1">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="font-bold text-slate-900 leading-tight">Backend Developer (Student Projects)</p>
-              <p class="text-sm text-slate-700">YouCode UM6P · Projects</p>
-              <p class="text-xs text-slate-500 mt-1">Oct 2024 — Apr 2026 · Safi, Morocco</p>
+              <p class="text-xs text-slate-500 mt-1">Start: May 2026 · End: Present</p>
             </div>
 
             <button class="text-slate-400 hover:text-slate-600" title="More">
               <span class="text-xl leading-none">⋯</span>
             </button>
           </div>
-
-          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
-            Developed multiple web apps using MVC principles. Focused on backend logic,
-            database migrations, and clean code organization.
-          </p>
         </div>
       </div>
-    </div>
-
-    <div class="px-5 py-4 bg-slate-50 border-t border-slate-200">
-      <button class="text-sm font-semibold text-slate-700 hover:text-slate-900">
-        Show all experience →
-      </button>
     </div>
   </div>
 
@@ -277,8 +286,53 @@
       <button class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
     </div>
 
+    <!-- ADD EDUCATION FORM -->
+    <div class="border-t border-slate-200 p-5 bg-slate-50">
+      <form class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-slate-800 mb-1">Formation / School / Diploma</label>
+          <input
+            type="text"
+            name="education_name"
+            placeholder="Ex: YouCode — UM6P | Web Development Program"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-1">Start date</label>
+            <input
+              type="date"
+              name="education_start"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-800 mb-1">End date</label>
+            <input
+              type="date"
+              name="education_end"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            />
+            <p class="text-xs text-slate-500 mt-1">Leave empty if ongoing.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-1">
+          <button type="button" class="px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-100">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- LIST (Example item) -->
     <div class="border-t border-slate-200">
-      <!-- item 1 -->
       <div class="p-5 flex gap-4">
         <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600">
           🎓
@@ -286,38 +340,7 @@
 
         <div class="flex-1">
           <p class="font-bold text-slate-900 leading-tight">YouCode — UM6P</p>
-          <p class="text-sm text-slate-700">Web Development Program</p>
-          <p class="text-xs text-slate-500 mt-1">2024 — 2026 · Safi, Morocco</p>
-
-          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
-            Focused on full-stack development with Laravel, PostgreSQL, and modern UI.
-            Built team projects with GitHub workflow and clean architecture.
-          </p>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">OOP</span>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">MVC</span>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700">Git/GitHub</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-t border-slate-200"></div>
-
-      <!-- item 2 -->
-      <div class="p-5 flex gap-4">
-        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-500">
-          C
-        </div>
-
-        <div class="flex-1">
-          <p class="font-bold text-slate-900 leading-tight">Certification</p>
-          <p class="text-sm text-slate-700">Responsive Web Design</p>
-          <p class="text-xs text-slate-500 mt-1">2025</p>
-
-          <p class="text-sm text-slate-700 mt-3 leading-relaxed">
-            Built responsive layouts and improved UI consistency with modern CSS utilities.
-          </p>
+          <p class="text-xs text-slate-500 mt-1">Start: Oct 2024 · End: Apr 2026</p>
         </div>
       </div>
     </div>
@@ -331,161 +354,45 @@
       <button class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">+ Add</button>
     </div>
 
+    <!-- ADD SKILL FORM -->
+    <div class="border-t border-slate-200 p-5 bg-slate-50">
+      <form class="flex flex-col md:flex-row gap-3 items-end">
+        <div class="flex-1 w-full">
+          <label class="block text-sm font-semibold text-slate-800 mb-1">Skill name</label>
+          <input
+            type="text"
+            name="skill_name"
+            placeholder="Ex: Laravel"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+          />
+        </div>
+
+        <button type="submit" class="w-full md:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+          Add skill
+        </button>
+      </form>
+    </div>
+
+    <!-- LIST (Example skills) -->
     <div class="border-t border-slate-200 p-5">
       <div class="flex flex-wrap gap-2">
         <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          Laravel <span class="text-xs font-bold text-slate-500">(Advanced)</span>
+          Laravel
         </span>
         <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          PHP <span class="text-xs font-bold text-slate-500">(Advanced)</span>
+          PHP
         </span>
         <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          PostgreSQL <span class="text-xs font-bold text-slate-500">(Intermediate)</span>
+          PostgreSQL
         </span>
         <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          Tailwind CSS <span class="text-xs font-bold text-slate-500">(Advanced)</span>
+          Tailwind CSS
         </span>
-        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          REST APIs <span class="text-xs font-bold text-slate-500">(Intermediate)</span>
-        </span>
-        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          Git/GitHub <span class="text-xs font-bold text-slate-500">(Intermediate)</span>
-        </span>
-      </div>
-
-      <div class="mt-4">
-        <button class="text-sm font-semibold text-slate-700 hover:text-slate-900">
-          Show all skills →
-        </button>
       </div>
     </div>
   </div>
+
 </section>
-
-<div id="modalExperience" class="fixed inset-0 z-50 hidden">
-    <div data-close-modal class="absolute inset-0 bg-black/40"></div>
-
-    <div class="relative mx-auto mt-16 w-[92%] max-w-xl">
-      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div class="p-5 flex items-start justify-between">
-          <div>
-            <h4 class="text-lg font-bold text-slate-900">Add experience</h4>
-            <p class="text-sm text-slate-500 mt-1">Fill details like LinkedIn.</p>
-          </div>
-          <button data-close-modal class="text-slate-400 hover:text-slate-600 text-2xl leading-none">×</button>
-        </div>
-
-        <form id="experienceForm" class="p-5 pt-0 space-y-3">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input id="expTitle" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="Title (e.g. Full Stack Developer)" required />
-            <input id="expCompany" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="Company (e.g. Azura Group)" required />
-            <input id="expLocation" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="Location (optional)" />
-            <select id="expType" class="px-4 py-3 rounded-xl border border-slate-200">
-              <option>Full-time</option>
-              <option>Part-time</option>
-              <option selected>Internship</option>
-              <option>Freelance</option>
-            </select>
-            <input id="expStart" type="month" class="px-4 py-3 rounded-xl border border-slate-200" />
-            <input id="expEnd" type="month" class="px-4 py-3 rounded-xl border border-slate-200" />
-          </div>
-
-          <label class="flex items-center gap-2 text-sm text-slate-700">
-            <input id="expCurrent" type="checkbox" class="rounded border-slate-300">
-            I currently work here
-          </label>
-
-          <textarea id="expDesc" class="w-full min-h-[110px] px-4 py-3 rounded-xl border border-slate-200" placeholder="Description / Missions (optional)"></textarea>
-
-          <div class="flex items-center justify-end gap-3 pt-2">
-            <button type="button" data-close-modal class="px-5 py-3 rounded-xl border border-slate-200 font-semibold text-slate-700 hover:bg-slate-50">
-              Cancel
-            </button>
-            <button type="submit" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Education -->
-  <div id="modalEducation" class="fixed inset-0 z-50 hidden">
-    <div data-close-modal class="absolute inset-0 bg-black/40"></div>
-
-    <div class="relative mx-auto mt-16 w-[92%] max-w-xl">
-      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div class="p-5 flex items-start justify-between">
-          <div>
-            <h4 class="text-lg font-bold text-slate-900">Add education</h4>
-            <p class="text-sm text-slate-500 mt-1">Add school, degree, and dates.</p>
-          </div>
-          <button data-close-modal class="text-slate-400 hover:text-slate-600 text-2xl leading-none">×</button>
-        </div>
-
-        <form id="educationForm" class="p-5 pt-0 space-y-3">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input id="eduSchool" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="School (e.g. YouCode UM6P)" required />
-            <input id="eduDegree" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="Degree (optional)" />
-            <input id="eduField" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="Field of study (optional)" />
-            <input id="eduCity" class="px-4 py-3 rounded-xl border border-slate-200" placeholder="City (optional)" />
-            <input id="eduStart" type="month" class="px-4 py-3 rounded-xl border border-slate-200" />
-            <input id="eduEnd" type="month" class="px-4 py-3 rounded-xl border border-slate-200" />
-          </div>
-
-          <textarea id="eduDesc" class="w-full min-h-[110px] px-4 py-3 rounded-xl border border-slate-200" placeholder="Description (optional)"></textarea>
-
-          <div class="flex items-center justify-end gap-3 pt-2">
-            <button type="button" data-close-modal class="px-5 py-3 rounded-xl border border-slate-200 font-semibold text-slate-700 hover:bg-slate-50">
-              Cancel
-            </button>
-            <button type="submit" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Skill -->
-  <div id="modalSkill" class="fixed inset-0 z-50 hidden">
-    <div data-close-modal class="absolute inset-0 bg-black/40"></div>
-
-    <div class="relative mx-auto mt-20 w-[92%] max-w-lg">
-      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div class="p-5 flex items-start justify-between">
-          <div>
-            <h4 class="text-lg font-bold text-slate-900">Add skill</h4>
-            <p class="text-sm text-slate-500 mt-1">Add a skill and level.</p>
-          </div>
-          <button data-close-modal class="text-slate-400 hover:text-slate-600 text-2xl leading-none">×</button>
-        </div>
-
-        <form id="skillForm" class="p-5 pt-0 space-y-3">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <input id="skillName" class="md:col-span-2 px-4 py-3 rounded-xl border border-slate-200" placeholder="Skill (e.g. Laravel)" required />
-            <select id="skillLevel" class="px-4 py-3 rounded-xl border border-slate-200" required>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate" selected>Intermediate</option>
-              <option value="Advanced">Advanced</option>
-            </select>
-          </div>
-
-          <div class="flex items-center justify-end gap-3 pt-2">
-            <button type="button" data-close-modal class="px-5 py-3 rounded-xl border border-slate-200 font-semibold text-slate-700 hover:bg-slate-50">
-              Cancel
-            </button>
-            <button type="submit" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
 
 </main>
 

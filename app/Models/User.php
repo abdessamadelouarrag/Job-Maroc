@@ -52,4 +52,21 @@ class User extends Authenticatable
         return $query->where('name', 'like', "%{$usersearch}%")
                     ->where('id', '!=', auth()->user()->id);
     }
+    
+    public function experiences()
+    {
+        return $this->hasMany(Experiences::class, 'id_user');
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(Formations::class, 'id_user');
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(Skills::class, 'id_user');
+    }
+
+
 }

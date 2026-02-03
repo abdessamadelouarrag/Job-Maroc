@@ -42,6 +42,12 @@
         Route::patch('/friend-requests/{id}/refuse', [FriendRequestController::class, 'refuse'])
             ->name('friend-requests.refuse');
 
+        Route::post('/experience', [ProfileController::class, 'storeExperience'])->name('experience.store');
+        Route::post('/education', [ProfileController::class, 'storeEducation'])->name('education.store');
+        Route::post('/skill', [ProfileController::class, 'storeSkill'])->name('skill.store');
+
+
+
 
     });
     require __DIR__ . '/auth.php';
