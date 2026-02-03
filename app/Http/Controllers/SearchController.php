@@ -20,7 +20,7 @@ class SearchController extends Controller
             })
             ->paginate(10);
 
-        // ✅ map: [user_id => true] if pending/accepted exists
+        // map: [user_id => true] if pending/accepted exists
         $existsMap = [];
 
         if (Auth::check()) {
