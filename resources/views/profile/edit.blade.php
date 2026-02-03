@@ -201,13 +201,23 @@
 
     <!-- ADD EXPERIENCE FORM -->
     <div class="border-t border-slate-200 p-5 bg-slate-50">
+      @if ($errors->any())
+  <div class="p-3 mb-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+    <ul class="list-disc pl-5">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
       <form class="space-y-4" method="POST" action="{{ route('experience.store') }}">
         @csrf
         <div>
           <label class="block text-sm font-semibold text-slate-800 mb-1">Experience name / title</label>
           <input
             type="text"
-            name="experience_name"
+            name="name_of_experience"
             placeholder="Ex: Full Stack Web Developer"
             class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
           />
@@ -217,7 +227,7 @@
           <label class="block text-sm font-semibold text-slate-800 mb-1">City of Experince</label>
           <input
             type="text"
-            name="experience_city"
+            name="city"
             placeholder="Ex: Casablanca"
             class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
           />
@@ -228,7 +238,7 @@
             <label class="block text-sm font-semibold text-slate-800 mb-1">Start date</label>
             <input
               type="date"
-              name="experience_start"
+              name="date_start"
               class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
           </div>
@@ -237,7 +247,7 @@
             <label class="block text-sm font-semibold text-slate-800 mb-1">End date</label>
             <input
               type="date"
-              name="experience_end"
+              name="date_end"
               class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
             <p class="text-xs text-slate-500 mt-1">If it’s current, leave end date empty.</p>
@@ -293,7 +303,7 @@
           <label class="block text-sm font-semibold text-slate-800 mb-1">Formation / School / Diploma</label>
           <input
             type="text"
-            name="education_name"
+            name="name_of_formation"
             placeholder="Ex: YouCode — UM6P | Web Development Program"
             class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
           />
@@ -304,7 +314,7 @@
             <label class="block text-sm font-semibold text-slate-800 mb-1">Start date</label>
             <input
               type="date"
-              name="education_start"
+              name="date_start"
               class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
           </div>
@@ -313,7 +323,7 @@
             <label class="block text-sm font-semibold text-slate-800 mb-1">End date</label>
             <input
               type="date"
-              name="education_end"
+              name="date_end"
               class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
             <p class="text-xs text-slate-500 mt-1">Leave empty if ongoing.</p>
@@ -361,7 +371,7 @@
           <label class="block text-sm font-semibold text-slate-800 mb-1">Skill name</label>
           <input
             type="text"
-            name="skill_name"
+            name="name_skills"
             placeholder="Ex: Laravel"
             class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
           />

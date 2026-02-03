@@ -60,14 +60,16 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-    
+
     public function storeExperience(Request $request)
     {
+        // dd($request->all());
+
         $data = $request->validate([
-            'experience_name' => 'required|string|max:255',
-            'experience_city' => 'nullable|string|max:255',
-            'experience_start' => 'required|date',
-            'experience_end' => 'nullable|date|after_or_equal:experience_start',
+            'name_of_experience' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'date_start' => 'required|date|after_or_equal:date_start',
+            'date_end' => 'nullable|date|after_or_equal:date_start',
         ]);
 
         $data['id_user'] = auth()->id();
@@ -78,29 +80,37 @@ class ProfileController extends Controller
     }
 
 
+
     public function storeEducation(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+        $data = $request->validate([
+            'name_of_formation' => 'required|string|max:255',
+            'date_start' => 'required|date',
+            'date_end' => 'nullable|date|after_or_equal:date_start',
         ]);
 
-        $request->user()->educations()->create($request->all());
+        $data['id_user'] = auth()->id();
+
+        Formations::create($data);
 
         return back()->with('success', 'Education added');
     }
 
+
     public function storeSkill(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:100',
+        $data = $request->validate([
+            'name_skills' => 'required|string|max:100',
         ]);
 
-        $request->user()->skills()->create($request->all());
+        $data['id_user'] = auth()->id();
+
+        Skills::create($data);
 
         return back()->with('success', 'Skill added');
     }
+
+
 
 
 }

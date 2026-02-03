@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Formations extends Model
 {
     protected $table = 'table_formations';
+    public $timestamps = false;
+
 
     protected $fillable = [
         'id_user',
