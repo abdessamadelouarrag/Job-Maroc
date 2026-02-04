@@ -330,65 +330,77 @@
         </div>
 
         {{-- Post 1 --}}
-        <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.14s;">
-          <div class="flex items-start justify-between">
-            <div class="flex gap-3">
-              <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-white flex items-center justify-center font-extrabold shadow-sm
-                          transition hover:scale-[1.03]">JM</div>
-              <div>
-                <p class="font-bold text-ink-900">Admin JobMaroc</p>
-                <p class="text-xs text-slate-500">Il y a 2h • Public</p>
-              </div>
-            </div>
-            <button class="h-9 w-9 rounded-2xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50
-                           transition active:scale-[0.98]">•••</button>
-          </div>
+        <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-soft animate-fadeUp"
+         style="animation-delay:.14s;">
 
-          <p class="mt-4 text-slate-700 text-sm leading-relaxed">
-            Nouvelle fonctionnalité : recherche par spécialité + profils améliorés. 🚀 (Post static)
-          </p>
+  <!-- Recruiter / Company -->
+  <div class="flex items-start justify-between">
+    <div class="flex gap-3">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white 
+                  flex items-center justify-center font-extrabold shadow-sm">
+        PS
+      </div>
+      <div>
+        <p class="font-bold text-ink-900">ProxySoft</p>
+        <p class="text-xs text-slate-500">Recruteur • Il y a 3h</p>
+      </div>
+    </div>
 
-          <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-            <img
-              class="w-full h-52 object-cover transition duration-700 hover:scale-[1.03]"
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=60"
-              alt="team"
-            >
-          </div>
+    <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-semibold">
+      Offre active
+    </span>
+  </div>
 
-          <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
-            <span>124 likes</span>
-            <span>18 commentaires</span>
-          </div>
+  <!-- Job title -->
+  <h2 class="mt-4 text-lg font-extrabold text-slate-900">
+    Développeur Web Laravel (Stage)
+  </h2>
 
-          <div class="mt-4 pt-4 border-t border-white/60 flex gap-2">
-            <button class="group flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl hover:bg-white/60
-                           text-sm font-semibold text-slate-700 transition active:scale-[0.99]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition group-hover:-translate-y-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-2-2-2 2m0 0v10m0-10H7a4 4 0 00-4 4v1a4 4 0 004 4h1" />
-              </svg>
-              Like
-            </button>
-            <button class="group flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl hover:bg-white/60
-                           text-sm font-semibold text-slate-700 transition active:scale-[0.99]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition group-hover:-translate-y-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h8m-8 4h6m-4 6h6a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h2z" />
-              </svg>
-              Comment
-            </button>
-            <button class="group flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl hover:bg-white/60
-                           text-sm font-semibold text-slate-700 transition active:scale-[0.99]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition group-hover:-translate-y-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M8.684 13.342C9.886 14.535 11.504 15 13.4 15c1.724 0 3.22-.4 4.395-1.267M15 10h.01M9 10h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
-              </svg>
-              Share
-            </button>
-          </div>
-        </article>
+  <!-- Job meta -->
+  <div class="mt-2 flex flex-wrap gap-2 text-xs">
+    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">📍 Casablanca</span>
+    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">⏱️ Stage – 2 mois</span>
+    <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">💻 Remote possible</span>
+  </div>
+
+  <!-- Description -->
+  <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+    Nous recherchons un(e) stagiaire développeur(se) web passionné(e) par Laravel
+    pour participer au développement de plateformes modernes orientées emploi et réseaux professionnels.
+  </p>
+
+  <!-- Skills -->
+  <div class="mt-4 flex flex-wrap gap-2 text-xs">
+    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 font-semibold">Laravel</span>
+    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 font-semibold">PHP</span>
+    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 font-semibold">Tailwind</span>
+    <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 font-semibold">PostgreSQL</span>
+  </div>
+
+  <!-- CTA -->
+  <div class="mt-6 flex items-center justify-between">
+    <p class="text-xs text-slate-500">
+      Candidatures ouvertes jusqu’au 30 mars
+    </p>
+
+    <button
+      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl
+             bg-gradient-to-r from-indigo-600 to-purple-600 text-white
+             font-bold text-sm shadow-md hover:opacity-90 transition active:scale-[0.97]">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+      Postuler
+    </button>
+  </div>
+
+</article>
+
 
         {{-- Post 2 --}}
-        <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.2s;">
+        <!-- <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.2s;">
           <div class="flex items-start justify-between">
             <div class="flex gap-3">
               <div class="w-11 h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-extrabold shadow-sm
@@ -424,7 +436,7 @@
             <button class="flex-1 px-3 py-2 rounded-2xl hover:bg-white/60 text-sm font-semibold text-slate-700 transition active:scale-[0.99]">Comment</button>
             <button class="flex-1 px-3 py-2 rounded-2xl hover:bg-white/60 text-sm font-semibold text-slate-700 transition active:scale-[0.99]">Share</button>
           </div>
-        </article>
+        </article> -->
 
       </section>
 
