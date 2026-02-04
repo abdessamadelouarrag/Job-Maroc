@@ -364,16 +364,21 @@
     <div class="border-t border-slate-200">
       @forelse($educations as $education)
       <div class="p-5 flex gap-4">
-        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600">
-          {{ strtoupper(substr($experience->name_of_formation, 0, 1)) }}
+        <div class="w-12 h-12 rounded-xl bg-slate-100 font-bold border border-slate-200 flex items-center justify-center text-slate-600">
+          {{ strtoupper(substr($education->name_of_formation, 0, 1)) }}
         </div>
 
         <div class="flex-1">
-          <p class="font-bold text-slate-900 leading-tight">{{$experience->name_of_formation}}</p>
+          <p class="font-bold text-slate-900 leading-tight">{{$education->name_of_formation}}</p>
           <p class="text-xs text-slate-500 mt-1">Start: Start: {{ \Carbon\Carbon::parse($education->date_start)->format('M Y') }} · End: {{ \Carbon\Carbon::parse($education->date_end)->format('M Y') }}</p>
         </div>
       </div>
     </div>
+     @empty
+    <div class="p-5 text-sm text-slate-500">
+      No experiences added yet.
+    </div>
+  @endforelse
   </div>
 
 

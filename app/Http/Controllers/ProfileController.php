@@ -24,6 +24,7 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $user,
             'experiences' => $user->experiences()->orderBy('date_start', 'desc')->get(),
+            'educations' => $user->educations()->orderby('date_start', 'desc')->get(),
         ]);
     }
 
