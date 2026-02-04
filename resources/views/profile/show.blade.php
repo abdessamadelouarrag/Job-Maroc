@@ -247,12 +247,9 @@
               <span class="ms text-slate-700">apartment</span>
             </div>
             <div class="flex-1">
-              <p class="font-bold text-slate-900">Stage Développeur Web</p>
-              <p class="text-sm text-slate-600 font-semibold">Agence • Stage</p>
-              <p class="text-sm text-slate-500">2025 — 2026 • {{ $location }}</p>
-              <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-                Intégration UI, développement de fonctionnalités et optimisation de l’expérience utilisateur.
-              </p>
+              <p class="font-bold text-slate-900">{{$experience->name_of_experience}}</p>
+              <p class="text-sm text-slate-600 font-semibold">{{$experience->city}}</p>
+              <p class="text-sm text-slate-500">{{Carbon\Carbon::parse($experience->date_start)->format('M Y')}} — {{Carbon\Carbon::parse($experience->date_end)->format('M Y')}}</p>
             </div>
           </div>
           @empty
@@ -271,27 +268,22 @@
         </h3>
 
         <div class="mt-4 space-y-4">
+          @forelse($educations as $education)
+
           <div class="flex gap-3">
             <div class="h-11 w-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center">
               <span class="ms text-cyan-700">school</span>
             </div>
             <div class="flex-1">
-              <p class="font-bold text-slate-900">YouCode Safi (UM6P)</p>
-              <p class="text-sm text-slate-600 font-semibold">Développement Web • Full Stack</p>
-              <p class="text-sm text-slate-500">2024 — 2026</p>
+              <p class="font-bold text-slate-900">{{$education->name_of_formation}}</p>
+              <p class="text-sm text-slate-500">{{Carbon\Carbon::parse($education->date_start)->format('M Y')}} — {{Carbon\Carbon::parse($education->date_end)->format('M Y')}}</p>
             </div>
           </div>
-
-          <div class="flex gap-3">
-            <div class="h-11 w-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center">
-              <span class="ms text-cyan-700">menu_book</span>
-            </div>
-            <div class="flex-1">
-              <p class="font-bold text-slate-900">Auto-formation</p>
-              <p class="text-sm text-slate-600 font-semibold">Laravel, PostgreSQL, UI/UX</p>
-              <p class="text-sm text-slate-500">En continu</p>
-            </div>
-          </div>
+          @empty
+    <div class="p-5 text-sm text-slate-500">
+      No experiences added yet.
+    </div>
+  @endforelse
         </div>
       </section>
 
@@ -339,25 +331,23 @@
         </h3>
 
         <div class="mt-4 flex flex-wrap gap-2">
-          @php
-            $skills = is_array($user->skills ?? null) ? $user->skills : ['Laravel','PHP','PostgreSQL','Tailwind','JavaScript'];
+          @forelse($skills as $index => $skill)
 
-            $colors = [
-              'bg-blue-50 text-blue-700 border-blue-200',
-              'bg-green-50 text-green-700 border-green-200',
-              'bg-purple-50 text-purple-700 border-purple-200',
-              'bg-yellow-50 text-yellow-700 border-yellow-200',
-              'bg-pink-50 text-pink-700 border-pink-200',
-              'bg-indigo-50 text-indigo-700 border-indigo-200',
-            ];
-          @endphp
+            @php
+                $colors = [
+                    'bg-blue-50 text-blue-700 border-blue-200',
+                    'bg-green-50 text-green-700 border-green-200',
+                    'bg-purple-50 text-purple-700 border-purple-200',
+                    'bg-yellow-50 text-yellow-700 border-yellow-200',
+                    'bg-pink-50 text-pink-700 border-pink-200',
+                    'bg-indigo-50 text-indigo-700 border-indigo-200',
+                ];
 
-          @foreach($skills as $i => $skill)
-            @php $c = $colors[$i % count($colors)]; @endphp
-            <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold {{ $c }}
-                         transition hover:-translate-y-[1px] hover:shadow-sm">
+                $color = $colors[$index % count($colors)];
+            @endphp
+            <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold transition hover:-translate-y-[1px] hover:shadow-sm {{$color}}">
               <span class="ms" style="font-size:18px;">bolt</span>
-              {{ $skill }}
+              {{ $skill->name_skills }}
             </span>
           @endforeach
         </div>
