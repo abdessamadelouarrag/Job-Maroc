@@ -120,7 +120,8 @@
         </a>
 
         <div class="flex items-center gap-3">
-          <div class="hidden md:flex items-center gap-3 rounded-2xl bg-white/70 border border-white/70 px-3 py-2 shadow-sm
+          <a href="{{ route('profile.edit') }}">
+            <div class="hidden md:flex items-center gap-3 rounded-2xl bg-white/70 border border-white/70 px-3 py-2 shadow-sm
                       transition hover:shadow-soft hover:-translate-y-[1px]">
             <div class="h-9 w-9 rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
               <img class="w-full h-full object-cover" src="{{ asset('storage/' . auth()->user()->image_url) }}" alt="">
@@ -129,7 +130,8 @@
               <p class="text-sm font-semibold text-slate-800">{{ auth()->user()->name }}</p>
               <p class="text-xs text-slate-500">{{ auth()->user()->email }}</p>
             </div>
-          </div>
+          </div> 
+          </a>
 
           <form method="POST" action="{{ route('logout') }}">
             @csrf

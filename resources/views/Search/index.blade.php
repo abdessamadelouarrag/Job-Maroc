@@ -167,15 +167,6 @@
                 <span class="text-xs text-slate-500">•</span>
                 <span class="text-xs text-slate-500 truncate">{{ $user->email }}</span>
               </div>
-
-              {{-- Subtitle (static for now) --}}
-              <p class="text-sm text-slate-600 truncate mt-0.5">
-                Full Stack Developer • Laravel / React • Morocco
-              </p>
-
-              <p class="text-xs text-slate-500 mt-1">
-                Casablanca et périphérie
-              </p>
             </div>
 
             {{-- Action --}}
