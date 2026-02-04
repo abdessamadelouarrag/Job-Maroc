@@ -46,7 +46,7 @@
         Route::post('/education', [ProfileController::class, 'storeEducation'])->name('education.store');
         Route::post('/skill', [ProfileController::class, 'storeSkill'])->name('skill.store');
 
-
+        Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 
     });

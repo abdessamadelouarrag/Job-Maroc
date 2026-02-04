@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -44,8 +45,18 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Images uploaded successfully!');
     }
-    public function show(User $user)
+    // public function show(User $user)
+    // {
+    //     return view('profile.show', compact('user'));
+    // }
+
+    public function show(User $user): View
     {
-        return view('profile.show', compact('user'));
+        return view('profile.show', [
+            'user' => $user,
+            'experiences' => $user->experiences()->orderBy('date_start', 'desc')->get(),
+            'educations'  => $user->educations()->orderBy('date_start', 'desc')->get(),
+            'skills'      => $user->skills()->get(),
+        ]);
     }
 }
