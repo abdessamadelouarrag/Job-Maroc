@@ -26,7 +26,6 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'bio' => ['nullable', 'string', 'max:1000'],
-            'specialite' => ['nullable', 'string', 'ma']
         ];
     }
 }

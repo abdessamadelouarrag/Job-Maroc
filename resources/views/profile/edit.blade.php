@@ -316,7 +316,8 @@
 
     <!-- ADD EDUCATION FORM -->
     <div class="border-t border-slate-200 p-5 bg-slate-50">
-      <form class="space-y-4">
+      <form class="space-y-4" method="POST" action="{{route('education.store')}}">
+        @csrf
         <div>
           <label class="block text-sm font-semibold text-slate-800 mb-1">Formation / School / Diploma</label>
           <input
