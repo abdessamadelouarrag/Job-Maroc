@@ -198,11 +198,27 @@
 
         {{-- Actions --}}
         <div class="flex items-center gap-2 sm:pb-1">
-          <button class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
-                         bg-slate-900 text-white hover:bg-slate-800 transition active:scale-[0.99]">
-            <span class="ms">login</span>
-            Se connecter
-          </button>
+          <div class="shrink-0">
+              @if(auth()->check() && auth()->id() !== $user->id)
+
+  @php $exists = $existsMap[$user->id] ?? false; @endphp
+
+  @if(!$exists)
+    <form action="{{ route('friend-requests.store', $user->id) }}" method="POST">
+      @csrf
+      <button class="px-4 py-2 rounded-lg bg-indigo-600 text-white">
+        Se Connecter
+      </button>
+    </form>
+  @else
+    <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 cursor-not-allowed" disabled>
+      Demande déjà envoyée / Déjà amis
+    </button>
+  @endif
+
+@endif
+
+            </div>
           <button class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
                          border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
             <span class="ms">chat</span>
