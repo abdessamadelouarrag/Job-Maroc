@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  {{-- Material Symbols (Icons) --}}
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
   <script>
     tailwind.config = {
       theme: {
@@ -40,6 +43,20 @@
     ::-webkit-scrollbar-thumb { background: rgba(15,23,42,.18); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(15,23,42,.28); }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+    /* Material symbols helper */
+    .ms {
+      font-family: 'Material Symbols Outlined';
+      font-weight: 400;
+      font-style: normal;
+      font-size: 22px;
+      line-height: 1;
+      display: inline-flex;
+      vertical-align: middle;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
   </style>
 </head>
 
@@ -48,24 +65,16 @@
 @php
   use Illuminate\Support\Facades\Storage;
 
-  // Safe image URL resolver (no errors)
   $img = function ($path) {
       if (!$path) return null;
+      if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) return $path;
 
-      // Direct url
-      if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
-          return $path;
-      }
-
-      // Remove "public/" if exists
       $path = preg_replace('#^public/#', '', $path);
 
-      // If exists in storage/public disk
       if (Storage::disk('public')->exists($path)) {
-          return Storage::url($path); // => /storage/...
+          return Storage::url($path);
       }
 
-      // Fallback: maybe it is in /public folder
       return file_exists(public_path($path)) ? asset($path) : null;
   };
 
@@ -74,7 +83,7 @@
 
   $headline = $user->headline ?? 'Développeur Web';
   $location = $user->location ?? 'Maroc';
-  $bio = $user->bio ?? "Aucune description pour le moment. Ajoute une bio (stack, objectifs, projets…).";
+  $bio = $user->bio ?? "Aucune description pour le moment";
 @endphp
 
 {{-- Decorative blobs --}}
@@ -101,13 +110,15 @@
         <a href="{{ url()->previous() }}"
            class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
                   border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
-          ← Retour
+          <span class="ms">arrow_back</span>
+          Retour
         </a>
 
         @if(Route::has('dashboard'))
           <a href="{{ route('dashboard') }}"
              class="hidden sm:inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
                     bg-slate-900 text-white hover:bg-slate-800 transition active:scale-[0.99]">
+            <span class="ms">space_dashboard</span>
             Dashboard
           </a>
         @endif
@@ -129,15 +140,14 @@
         <div class="w-full h-full bg-gradient-to-r from-slate-900 via-slate-700 to-cyan-700"></div>
       @endif
 
-      {{-- Light overlay --}}
       <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
     </div>
 
     {{-- CONTENT --}}
     <div class="px-5 sm:px-7 pb-7">
 
-      {{-- Avatar + Name (FIXED: no cover, z-index, correct mt) --}}
-      <div class="-mt-14 sm:-mt-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 relative z-20">
+      <div class="relative z-20 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 pt-6">
+
 
         <div class="flex items-end gap-4">
           {{-- Avatar --}}
@@ -161,17 +171,25 @@
               {{ $headline }}
             </p>
 
-            <p class="text-sm text-slate-500 mt-1">
-              <span class="font-medium">{{ $location }}</span>
-              <span class="mx-2">•</span>
-              <span>{{ $user->email }}</span>
+            <p class="text-sm text-slate-500 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span class="inline-flex items-center gap-1">
+                <span class="ms" style="font-size:18px;">location_on</span>
+                <span class="font-medium">{{ $location }}</span>
+              </span>
+              <span class="text-slate-300">•</span>
+              <span class="inline-flex items-center gap-1">
+                <span class="ms" style="font-size:18px;">mail</span>
+                <span>{{ $user->email }}</span>
+              </span>
             </p>
 
             <div class="mt-3 flex flex-wrap gap-2">
-              <span class="inline-flex items-center rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100 px-3 py-1 text-xs font-semibold">
+              <span class="inline-flex items-center gap-2 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100 px-3 py-1 text-xs font-semibold">
+                <span class="ms" style="font-size:18px;">verified</span>
                 Disponible
               </span>
-              <span class="inline-flex items-center rounded-full bg-slate-50 text-slate-700 border border-slate-200 px-3 py-1 text-xs font-semibold">
+              <span class="inline-flex items-center gap-2 rounded-full bg-slate-50 text-slate-700 border border-slate-200 px-3 py-1 text-xs font-semibold">
+                <span class="ms" style="font-size:18px;">badge</span>
                 {{ $user->role ?? 'Membre' }}
               </span>
             </div>
@@ -182,10 +200,12 @@
         <div class="flex items-center gap-2 sm:pb-1">
           <button class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
                          bg-slate-900 text-white hover:bg-slate-800 transition active:scale-[0.99]">
+            <span class="ms">login</span>
             Se connecter
           </button>
           <button class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold
                          border border-slate-200 bg-white hover:bg-slate-50 transition active:scale-[0.99]">
+            <span class="ms">chat</span>
             Message
           </button>
         </div>
@@ -193,7 +213,10 @@
 
       {{-- ABOUT --}}
       <div class="mt-6">
-        <h2 class="text-base font-extrabold text-slate-900">À propos</h2>
+        <h2 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+          <span class="ms">info</span>
+          À propos
+        </h2>
         <p class="mt-2 text-sm text-slate-600 leading-relaxed">
           {{ $bio }}
         </p>
@@ -211,14 +234,17 @@
       {{-- Experiences --}}
       <section class="bg-white/80 backdrop-blur-xl border border-white/70 rounded-2xl p-5 sm:p-6 shadow-soft animate-fadeUp" style="animation-delay:.08s;">
         <div class="flex items-center justify-between">
-          <h3 class="text-base font-extrabold text-slate-900">Expériences</h3>
-          <span class="text-xs text-slate-500">LinkedIn style</span>
+          <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+            <span class="ms">work</span>
+            Expériences
+          </h3>
         </div>
 
         <div class="mt-4 space-y-4">
+          @forelse ($experiences as $experience)
           <div class="flex gap-3">
-            <div class="h-11 w-11 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-extrabold text-slate-700">
-              A
+            <div class="h-11 w-11 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center">
+              <span class="ms text-slate-700">apartment</span>
             </div>
             <div class="flex-1">
               <p class="font-bold text-slate-900">Stage Développeur Web</p>
@@ -229,31 +255,25 @@
               </p>
             </div>
           </div>
-
-          <div class="flex gap-3">
-            <div class="h-11 w-11 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-extrabold text-slate-700">
-              P
-            </div>
-            <div class="flex-1">
-              <p class="font-bold text-slate-900">Projet Full Stack</p>
-              <p class="text-sm text-slate-600 font-semibold">Laravel • PostgreSQL • Tailwind</p>
-              <p class="text-sm text-slate-500">2026 • {{ $location }}</p>
-              <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-                Auth, profils, recherche, système d’amis — avec une UI moderne et propre.
-              </p>
-            </div>
-          </div>
+          @empty
+    <div class="p-5 text-sm text-slate-500">
+      No experiences added yet.
+    </div>
+  @endforelse
         </div>
       </section>
 
       {{-- Formation --}}
       <section class="bg-white/80 backdrop-blur-xl border border-white/70 rounded-2xl p-5 sm:p-6 shadow-soft animate-fadeUp" style="animation-delay:.12s;">
-        <h3 class="text-base font-extrabold text-slate-900">Formation</h3>
+        <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+          <span class="ms">school</span>
+          Formation
+        </h3>
 
         <div class="mt-4 space-y-4">
           <div class="flex gap-3">
-            <div class="h-11 w-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center font-extrabold text-cyan-700">
-              🎓
+            <div class="h-11 w-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center">
+              <span class="ms text-cyan-700">school</span>
             </div>
             <div class="flex-1">
               <p class="font-bold text-slate-900">YouCode Safi (UM6P)</p>
@@ -263,8 +283,8 @@
           </div>
 
           <div class="flex gap-3">
-            <div class="h-11 w-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center font-extrabold text-cyan-700">
-              📚
+            <div class="h-11 w-11 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center">
+              <span class="ms text-cyan-700">menu_book</span>
             </div>
             <div class="flex-1">
               <p class="font-bold text-slate-900">Auto-formation</p>
@@ -282,21 +302,30 @@
 
       {{-- Contact --}}
       <section class="bg-white/80 backdrop-blur-xl border border-white/70 rounded-2xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.1s;">
-        <h3 class="text-base font-extrabold text-slate-900">Coordonnées</h3>
+        <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+          <span class="ms">contact_page</span>
+          Coordonnées
+        </h3>
 
         <div class="mt-4 space-y-3 text-sm">
           <div class="flex items-start justify-between gap-3">
-            <span class="text-slate-500">Email</span>
+            <span class="text-slate-500 inline-flex items-center gap-2">
+              <span class="ms" style="font-size:18px;">mail</span> Email
+            </span>
             <span class="font-semibold text-slate-900">{{ $user->email }}</span>
           </div>
 
           <div class="flex items-start justify-between gap-3">
-            <span class="text-slate-500">Téléphone</span>
+            <span class="text-slate-500 inline-flex items-center gap-2">
+              <span class="ms" style="font-size:18px;">call</span> Téléphone
+            </span>
             <span class="font-semibold text-slate-900">{{ $user->phone ?? '—' }}</span>
           </div>
 
           <div class="flex items-start justify-between gap-3">
-            <span class="text-slate-500">Site</span>
+            <span class="text-slate-500 inline-flex items-center gap-2">
+              <span class="ms" style="font-size:18px;">language</span> Site
+            </span>
             <span class="font-semibold text-slate-900">{{ $user->website ?? '—' }}</span>
           </div>
         </div>
@@ -304,17 +333,30 @@
 
       {{-- Skills --}}
       <section class="bg-white/80 backdrop-blur-xl border border-white/70 rounded-2xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.14s;">
-        <h3 class="text-base font-extrabold text-slate-900">Compétences</h3>
+        <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+          <span class="ms">auto_awesome</span>
+          Compétences
+        </h3>
 
         <div class="mt-4 flex flex-wrap gap-2">
           @php
-            // إذا skills ما كايناش ف DB، غادي نعطي default
             $skills = is_array($user->skills ?? null) ? $user->skills : ['Laravel','PHP','PostgreSQL','Tailwind','JavaScript'];
+
+            $colors = [
+              'bg-blue-50 text-blue-700 border-blue-200',
+              'bg-green-50 text-green-700 border-green-200',
+              'bg-purple-50 text-purple-700 border-purple-200',
+              'bg-yellow-50 text-yellow-700 border-yellow-200',
+              'bg-pink-50 text-pink-700 border-pink-200',
+              'bg-indigo-50 text-indigo-700 border-indigo-200',
+            ];
           @endphp
 
-          @foreach($skills as $skill)
-            <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700
+          @foreach($skills as $i => $skill)
+            @php $c = $colors[$i % count($colors)]; @endphp
+            <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold {{ $c }}
                          transition hover:-translate-y-[1px] hover:shadow-sm">
+              <span class="ms" style="font-size:18px;">bolt</span>
               {{ $skill }}
             </span>
           @endforeach
@@ -323,19 +365,28 @@
 
       {{-- Stats --}}
       <section class="bg-white/80 backdrop-blur-xl border border-white/70 rounded-2xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.18s;">
-        <h3 class="text-base font-extrabold text-slate-900">Aperçu</h3>
+        <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+          <span class="ms">insights</span>
+          Aperçu
+        </h3>
 
         <div class="mt-4 grid grid-cols-3 gap-2">
           <div class="rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:-translate-y-[1px] hover:shadow-sm">
-            <p class="text-xs text-slate-500">Posts</p>
+            <p class="text-xs text-slate-500 inline-flex items-center justify-center gap-1">
+              <span class="ms" style="font-size:18px;">article</span> Posts
+            </p>
             <p class="font-extrabold text-slate-900">12</p>
           </div>
           <div class="rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:-translate-y-[1px] hover:shadow-sm">
-            <p class="text-xs text-slate-500">Amis</p>
+            <p class="text-xs text-slate-500 inline-flex items-center justify-center gap-1">
+              <span class="ms" style="font-size:18px;">group</span> Amis
+            </p>
             <p class="font-extrabold text-slate-900">34</p>
           </div>
           <div class="rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:-translate-y-[1px] hover:shadow-sm">
-            <p class="text-xs text-slate-500">Vues</p>
+            <p class="text-xs text-slate-500 inline-flex items-center justify-center gap-1">
+              <span class="ms" style="font-size:18px;">visibility</span> Vues
+            </p>
             <p class="font-extrabold text-slate-900">128</p>
           </div>
         </div>

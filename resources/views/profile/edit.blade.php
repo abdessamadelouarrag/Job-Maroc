@@ -391,7 +391,8 @@
 
     <!-- ADD SKILL FORM -->
     <div class="border-t border-slate-200 p-5 bg-slate-50">
-      <form class="flex flex-col md:flex-row gap-3 items-end">
+      <form class="flex flex-col md:flex-row gap-3 items-end" method="POST" action="{{route('skill.store')}}">
+        @csrf
         <div class="flex-1 w-full">
           <label class="block text-sm font-semibold text-slate-800 mb-1">Skill name</label>
           <input
@@ -409,23 +410,35 @@
     </div>
 
     <!-- LIST (Example skills) -->
-    <div class="border-t border-slate-200 p-5">
-      <div class="flex flex-wrap gap-2">
-        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          Laravel
-        </span>
-        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          PHP
-        </span>
-        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          PostgreSQL
-        </span>
-        <span class="px-3 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-800">
-          Tailwind CSS
-        </span>
-      </div>
+<div class="border-t border-slate-200 p-5">
+    <div class="flex flex-wrap gap-3">
+        @forelse($skills as $index => $skill)
+
+            @php
+                $colors = [
+                    'bg-blue-50 text-blue-700 border-blue-200',
+                    'bg-green-50 text-green-700 border-green-200',
+                    'bg-purple-50 text-purple-700 border-purple-200',
+                    'bg-yellow-50 text-yellow-700 border-yellow-200',
+                    'bg-pink-50 text-pink-700 border-pink-200',
+                    'bg-indigo-50 text-indigo-700 border-indigo-200',
+                ];
+
+                $color = $colors[$index % count($colors)];
+            @endphp
+
+            <span class="px-4 py-2 rounded-full border text-sm font-semibold {{ $color }}">
+                {{ $skill->name_skills }}
+            </span>
+
+        @empty
+            <div class="text-sm text-slate-500">
+                No skills added yet.
+            </div>
+        @endforelse
     </div>
-  </div>
+</div>
+
 
 </section>
 
