@@ -9,4 +9,9 @@ class OffreController extends Controller
     public function show(){
         return view('Offre.newOffre');
     }
+
+    public function storeOffer()
+    {
+        // code...
+    }
 }
