@@ -292,42 +292,44 @@
       <section class="lg:col-span-6 space-y-6">
 
         {{-- Create post --}}
-        <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.08s;">
-          <div class="flex gap-3">
-            <div class="w-11 h-11 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 transition hover:scale-[1.02]">
-              <img class="w-full h-full object-cover" src="{{ asset('storage/' . auth()->user()->image_url) }}" alt="">
-            </div>
+<div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.18s;">
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="text-sm font-bold text-slate-900">Actions rapides</p>
+      <p class="text-xs text-slate-500 mt-1">Accède</p>
+    </div>
 
-            <div class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500
-                        transition hover:border-slate-300 hover:shadow-sm">
-              Partager quelque chose… (static)
-            </div>
-          </div>
+    <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
+      Recruiter
+    </span>
+  </div>
 
-          <div class="mt-4 grid grid-cols-3 gap-2">
-            <button disabled class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl border border-slate-200 bg-white text-sm text-slate-500
-                                   transition hover:-translate-y-[1px] hover:shadow-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2-2h6l2 2h4v12H3V7z" />
-              </svg>
-              Photo
-            </button>
-            <button disabled class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl border border-slate-200 bg-white text-sm text-slate-500
-                                   transition hover:-translate-y-[1px] hover:shadow-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0l-4-4m4 4l-4 4" />
-              </svg>
-              Article
-            </button>
-            <button disabled class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl border border-slate-200 bg-white text-sm text-slate-500
-                                   transition hover:-translate-y-[1px] hover:shadow-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 10H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z" />
-              </svg>
-              Job
-            </button>
-          </div>
+  <div class="mt-4 grid grid-cols-1 sm:grid-cols-1 gap-3">
+    <!-- Optional: Create Job Offer (if you want) -->
+    <a href=""
+       class="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-[1px] hover:shadow-md">
+      <div class="flex items-start justify-between">
+        <div class="h-10 w-10 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 10H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z" />
+          </svg>
         </div>
+
+        <span class="text-xs text-slate-400 group-hover:text-slate-500 transition">Offre</span>
+      </div>
+
+      <p class="mt-3 font-semibold text-slate-900">Créer une offre</p>
+      <p class="mt-1 text-sm text-slate-500">Publier une offre d’emploi avec les détails du poste.</p>
+
+      <div class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-600">
+        Aller à la création
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </a>
+  </div>
+</div>
 
         {{-- Post 1 --}}
         <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-soft animate-fadeUp"
