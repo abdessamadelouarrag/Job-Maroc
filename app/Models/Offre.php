@@ -14,5 +14,5 @@ class Offre extends Model
         'image_offer',
         'type_offer',
         'description',
-    ]
+    ];
 }

@@ -60,7 +60,9 @@
           </div>
 
           <!-- FORM -->
-          <form class="mt-6 space-y-5" action="#" method="post" enctype="multipart/form-data">
+
+        <form class="mt-6 space-y-5" method="POST" action="{{ route('offre.store') }}" enctype="multipart/form-data">
+            @csrf
             <!-- Title + Place -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -142,48 +144,48 @@
             </div>
 
             <!-- Type d’offre (pills) -->
-<div>
-  <label class="text-xs font-semibold text-slate-600 mb-2 block">
-    Type d’offre <span class="text-red-500">*</span>
-  </label>
+            <div>
+              <label class="text-xs font-semibold text-slate-600 mb-2 block">
+                Type d’offre <span class="text-red-500">*</span>
+              </label>
 
-  <div class="flex flex-wrap gap-2">
-    <label class="cursor-pointer">
-      <input type="radio" name="type_offre" value="cdi" class="hidden peer" required>
-      <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
-                   peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
-                   transition">CDI</span>
-    </label>
+              <div class="flex flex-wrap gap-2">
+                <label class="cursor-pointer">
+                  <input type="radio" name="type_offer" value="cdi" class="hidden peer" required>
+                  <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
+                               peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                               transition">CDI</span>
+                </label>
 
-    <label class="cursor-pointer">
-      <input type="radio" name="type_offre" value="cdd" class="hidden peer">
-      <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
-                   peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
-                   transition">CDD</span>
-    </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="type_offer" value="cdd" class="hidden peer">
+                  <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
+                               peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                               transition">CDD</span>
+                </label>
 
-    <label class="cursor-pointer">
-      <input type="radio" name="type_offre" value="stage" class="hidden peer">
-      <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
-                   peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
-                   transition">Stage</span>
-    </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="type_offer" value="stage" class="hidden peer">
+                  <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
+                               peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                               transition">Stage</span>
+                </label>
 
-    <label class="cursor-pointer">
-      <input type="radio" name="type_offre" value="freelance" class="hidden peer">
-      <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
-                   peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
-                   transition">Freelance</span>
-    </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="type_offer" value="freelance" class="hidden peer">
+                  <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
+                               peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                               transition">Freelance</span>
+                </label>
 
-    <label class="cursor-pointer">
-      <input type="radio" name="type_offre" value="alternance" class="hidden peer">
-      <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
-                   peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
-                   transition">Alternance</span>
-    </label>
-  </div>
-</div>
+                <label class="cursor-pointer">
+                  <input type="radio" name="type_offer" value="alternance" class="hidden peer">
+                  <span class="px-4 py-2 rounded-full border border-slate-200 text-sm
+                               peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                               transition">Alternance</span>
+                </label>
+              </div>
+            </div>
 
 
             <!-- Description -->

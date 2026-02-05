@@ -50,6 +50,7 @@
 
         Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
         Route::get('/offre', [OffreController::class, 'show'])->name('offre.new');
+        Route::post('/offre', [OffreController::class, 'storeOffer'])->name('offre.store');
 
 
     });
