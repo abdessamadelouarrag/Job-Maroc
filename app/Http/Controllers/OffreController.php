@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class OffreController extends Controller
 {
-    //
+    public function show(){
+        return view('Offre.newOffre');
+    }
 }

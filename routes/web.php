@@ -5,6 +5,8 @@
     use App\Http\Controllers\UserController;
     use App\Http\Controllers\SearchController;
     use App\Http\Controllers\FriendRequestController;
+    use App\Http\Controllers\OffreController;
+
 
 
     Route::get('/', function () {
@@ -47,7 +49,7 @@
         Route::post('/skill', [ProfileController::class, 'storeSkill'])->name('skill.store');
 
         Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-        Route::get('/offre', [OffreController::class, 'show'])->name('offre');
+        Route::get('/offre', [OffreController::class, 'show'])->name('offre.new');
 
 
     });

@@ -306,7 +306,7 @@
 
   <div class="mt-4 grid grid-cols-1 sm:grid-cols-1 gap-3">
     <!-- Optional: Create Job Offer (if you want) -->
-    <a href="{{route('offre.new')}}"
+    <a href="{{ route('offre.new') }}"
        class="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-[1px] hover:shadow-md">
       <div class="flex items-start justify-between">
         <div class="h-10 w-10 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
