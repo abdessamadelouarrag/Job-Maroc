@@ -52,6 +52,11 @@
         Route::get('/offre', [OffreController::class, 'show'])->name('offre.new');
         Route::post('/offre', [OffreController::class, 'storeOffer'])->name('offre.store');
 
+        Route::get('/dashboard', [OffreController::class, 'allOffer'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+
 
     });
     require __DIR__ . '/auth.php';

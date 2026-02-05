@@ -43,4 +43,14 @@ class OffreController extends Controller
             ->route('offre.new')
             ->with('success', 'Offre créée avec succes!');
     }
+
+    // afficher les offres
+    public function allOffer()
+    {
+
+        $offres = Offre::latest()->get();
+
+        return view('dashboard', compact('offres'));
+    }
+
 }
