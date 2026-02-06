@@ -358,82 +358,81 @@
     <div class="mt-4 space-y-3">
       @forelse(($requests ?? collect()) as $req)
 
-        <div class="group rounded-3xl border border-slate-200/70 bg-white/60 p-4
-                    hover:bg-white/80 hover:-translate-y-[1px] transition
-                    hover:shadow-[0_18px_45px_rgba(2,6,23,.10)]">
+        <div class="group rounded-3xl border border-slate-200/70 bg-white/60 p-3
+            hover:bg-white/80 transition hover:shadow-[0_18px_45px_rgba(2,6,23,.10)]">
 
-          {{-- ✅ Responsive header: buttons never overlap --}}
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+  {{-- Header --}}
+  <div class="flex items-center justify-between gap-2">
 
-            {{-- LEFT --}}
-            <div class="flex items-center gap-3 min-w-0 flex-1">
-              <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-700 text-white
-                          flex items-center justify-center font-extrabold shadow-sm shrink-0">
-                {{ strtoupper(substr($req->sender->name ?? 'U', 0, 1)) }}
-              </div>
+    {{-- Left --}}
+    <div class="flex items-center gap-2 min-w-0 flex-1">
+      <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-700 text-white
+                  flex items-center justify-center font-extrabold shadow-sm shrink-0 text-sm">
+        {{ strtoupper(substr($req->sender->name ?? 'U', 0, 1)) }}
+      </div>
 
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-extrabold text-ink-900 truncate">
-                  {{ $req->sender->name }}
-                </p>
+      <div class="min-w-0 flex-1">
+        <p class="text-sm font-extrabold text-ink-900 truncate leading-tight">
+          {{ $req->sender->name }}
+        </p>
 
-                {{-- badges: wrap safely --}}
-                <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
-                  <span class="inline-flex items-center gap-1 rounded-full
-                               bg-slate-100 text-slate-600 border border-slate-200">
-                    <i class="fa-regular fa-id-badge"></i>
-                    {{ $req->sender->role ?? 'user' }}
-                  </span>
+        {{-- badges compact --}}
+        <div class="mt-1 flex items-center gap-1.5 text-[11px] text-slate-600 min-w-0 flex-wrap">
+          <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5
+                       bg-slate-100 border border-slate-200">
+            <i class="fa-regular fa-id-badge text-[10px]"></i>
+            <span class="truncate max-w-[90px]">{{ $req->sender->role ?? 'user' }}</span>
+          </span>
 
-                  <span class="inline-flex items-center gap-1 rounded-full
-                               bg-indigo-50 text-indigo-700 border border-indigo-100 text-[8px]">
-                    <i class="fa-regular fa-clock"></i>
-                    {{ $req->created_at?->diffForHumans() ?? 'now' }}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {{-- RIGHT actions: aligned & fixed width --}}
-            <div class="flex items-center justify-end gap-2 shrink-0">
-              <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
-                @csrf
-                @method('PATCH')
-                <button title="Accepter"
-                        class="h-10 w-10 rounded-2xl grid place-items-center
-                               bg-emerald-600 text-white shadow-sm
-                               hover:opacity-95 hover:shadow-md
-                               focus:outline-none focus:ring-4 focus:ring-emerald-200/60
-                               active:scale-[0.98] transition">
-                  <i class="fa-solid fa-check"></i>
-                </button>
-              </form>
-
-              <form method="POST" action="{{ route('friend-requests.refuse', $req->id) }}">
-                @csrf
-                @method('PATCH')
-                <button title="Refuser"
-                        class="h-10 w-10 rounded-2xl grid place-items-center
-                               bg-rose-600 text-white shadow-sm
-                               hover:opacity-95 hover:shadow-md
-                               focus:outline-none focus:ring-4 focus:ring-rose-200/60
-                               active:scale-[0.98] transition">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-              </form>
-            </div>
-
-          </div>
-
-          <div class="mt-3 pt-3 border-t border-white/70 flex items-center justify-between text-xs">
-            <span class="text-slate-500">Décide maintenant</span>
-            <a href="{{ route('users.show', $req->sender_id) }}"
-               class="inline-flex items-center gap-2 font-extrabold text-indigo-700 hover:text-indigo-800 transition">
-              Voir profil
-              <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </a>
-          </div>
+          <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5
+                       bg-indigo-50 text-indigo-700 border border-indigo-100">
+            <i class="fa-regular fa-clock text-[10px]"></i>
+            {{ $req->created_at?->diffForHumans() ?? 'now' }}
+          </span>
         </div>
+      </div>
+    </div>
+
+    {{-- Right actions (smaller) --}}
+    <div class="flex items-center gap-1.5 shrink-0">
+      <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
+        @csrf
+        @method('PATCH')
+        <button title="Accepter"
+                class="h-9 w-9 rounded-2xl grid place-items-center
+                       bg-emerald-600 text-white shadow-sm
+                       hover:opacity-95 focus:outline-none focus:ring-4 focus:ring-emerald-200/60
+                       active:scale-[0.98] transition">
+          <i class="fa-solid fa-check text-sm"></i>
+        </button>
+      </form>
+
+      <form method="POST" action="{{ route('friend-requests.refuse', $req->id) }}">
+        @csrf
+        @method('PATCH')
+        <button title="Refuser"
+                class="h-9 w-9 rounded-2xl grid place-items-center
+                       bg-rose-600 text-white shadow-sm
+                       hover:opacity-95 focus:outline-none focus:ring-4 focus:ring-rose-200/60
+                       active:scale-[0.98] transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  {{-- Footer (compact) --}}
+  <div class="mt-2 pt-2 border-t border-white/70 flex items-center justify-between text-[11px]">
+    <span class="text-slate-500">Décide maintenant</span>
+    <a href="{{ route('users.show', $req->sender_id) }}"
+       class="inline-flex items-center gap-2 font-extrabold text-indigo-700 hover:text-indigo-800 transition">
+      Voir profil
+      <i class="fa-solid fa-arrow-right text-[10px]"></i>
+    </a>
+  </div>
+</div>
+
 
       @empty
         <div class="rounded-3xl border border-dashed border-slate-200 bg-white/50 p-6 text-center">
