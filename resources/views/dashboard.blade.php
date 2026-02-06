@@ -294,6 +294,7 @@
       <section class="lg:col-span-6 space-y-6">
 
         {{-- Create post --}}
+@if(auth()->user()->role === 'recruiter')
 <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.18s;">
   <div class="flex items-center justify-between">
     <div>
@@ -332,6 +333,7 @@
     </a>
   </div>
 </div>
+@endif
 
         {{-- Post 1 --}}
 <!-- {{-- OFFRES --}}

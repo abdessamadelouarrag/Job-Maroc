@@ -15,6 +15,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'image_url',
         'banner_url',
         'bio',
@@ -52,7 +53,7 @@ class User extends Authenticatable
         return $query->where('name', 'like', "%{$usersearch}%")
                     ->where('id', '!=', auth()->user()->id);
     }
-    
+
     public function experiences()
     {
         return $this->hasMany(Experiences::class, 'id_user');
