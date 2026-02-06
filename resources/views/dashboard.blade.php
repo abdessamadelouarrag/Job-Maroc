@@ -465,39 +465,37 @@
           <div class="mt-4 space-y-3">
 
             @forelse(($requests ?? collect()) as $req)
-        <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-blue-300/40 px-3 py-3 hover:bg-blue-200 transition hover:-translate-y-[1px]">
-          <div class="flex items-center gap-3">
-            <div>
-              <p class="text-sm font-bold text-ink-900">{{ $req->sender->name }}</p>
-              <p class="text-xs text-slate-500">{{ $req->sender->role ?? 'user' }}</p>
+          <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-blue-300/40 px-3 py-3 hover:bg-blue-200 transition hover:-translate-y-[1px]">
+            <div class="flex items-center gap-3">
+              <div>
+                <p class="text-sm font-bold text-ink-900">{{ $req->sender->name }}</p>
+                <p class="text-xs text-slate-500">{{ $req->sender->role ?? 'user' }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
+                @csrf
+                @method('PATCH')
+                <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
+                               border border-slate-200 bg-green-600 transition active:scale-[0.99]">
+                  <i class="fa-solid fa-check text-white"></i>
+                </button>
+              </form>
+
+              <form method="POST" action="{{ route('friend-requests.refuse', $req->id) }}">
+                @csrf
+                @method('PATCH')
+                <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
+                               border border-slate-200 bg-red-600 transition active:scale-[0.99]">
+                  <i class="fa-solid fa-x text-white"></i>
+                </button>
+              </form>
             </div>
           </div>
-
-          <div class="flex items-center gap-2">
-            <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
-              @csrf
-              @method('PATCH')
-              <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
-                             border border-slate-200 bg-green-600 transition active:scale-[0.99]">
-                <i class="fa-solid fa-check text-white"></i>
-              </button>
-            </form>
-
-            <form method="POST" action="{{ route('friend-requests.refuse', $req->id) }}">
-              @csrf
-              @method('PATCH')
-              <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
-                             border border-slate-200 bg-red-600 transition active:scale-[0.99]">
-                <i class="fa-solid fa-x text-white"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      @empty
-        <p class="text-sm text-slate-500">aucun demandes d'amis ...</p>
-      @endforelse
-
-
+          @empty
+            <p class="text-sm text-slate-500">aucun demandes d'amis ...</p>
+          @endforelse
           </div>
         </div>
 

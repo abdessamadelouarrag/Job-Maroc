@@ -37,8 +37,11 @@
             ->name('users.show');
         Route::post('/friend-requests/{user}', [FriendRequestController::class, 'store'])
             ->name('friend-requests.store');
-        Route::get('/friend-requests', [FriendRequestController::class, 'index'])
-            ->name('friend-requests.index');
+            
+        Route::get('/dashboard', [FriendRequestController::class, 'allRequests'])
+            ->middleware(['auth', 'verified'])
+            ->name('dashboard');
+
         Route::patch('/friend-requests/{id}/accept', [FriendRequestController::class, 'accept'])
             ->name('friend-requests.accept');
         Route::patch('/friend-requests/{id}/refuse', [FriendRequestController::class, 'refuse'])
