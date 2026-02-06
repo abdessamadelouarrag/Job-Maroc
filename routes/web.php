@@ -6,6 +6,7 @@
     use App\Http\Controllers\SearchController;
     use App\Http\Controllers\FriendRequestController;
     use App\Http\Controllers\OffreController;
+    use App\Http\Controllers\DashboardController;
 
 
 
@@ -37,7 +38,7 @@
             ->name('users.show');
         Route::post('/friend-requests/{user}', [FriendRequestController::class, 'store'])
             ->name('friend-requests.store');
-            
+
         Route::get('/dashboard', [FriendRequestController::class, 'allRequests'])
             ->middleware(['auth', 'verified'])
             ->name('dashboard');
@@ -56,8 +57,12 @@
         Route::post('/offre', [OffreController::class, 'storeOffer'])->name('offre.store');
 
         Route::get('/dashboard', [OffreController::class, 'allOffer'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
 
 
 

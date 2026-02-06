@@ -8,10 +8,11 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -72,26 +73,22 @@
   </script>
 
   <style>
-    /* Smooth scroll (optional) */
     html { scroll-behavior: smooth; }
-
-    /* Nice scrollbar (optional) */
     ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-thumb { background: rgba(15,23,42,.18); border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(15,23,42,.28); }
-
-    /* Reduce motion preference */
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
   </style>
+
   @livewireStyles
 </head>
 
 <body class="min-h-screen font-sans antialiased text-slate-800
              bg-gradient-to-br from-slate-50 via-slate-100 to-cyan-50">
 
-  {{-- Decorative blobs (animated) --}}
+  {{-- Decorative blobs --}}
   <div class="pointer-events-none fixed inset-0 overflow-hidden">
     <div class="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-cyan-200/40 blur-3xl animate-floaty"></div>
     <div class="absolute -bottom-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl animate-floaty" style="animation-delay: 1.5s;"></div>
@@ -122,19 +119,27 @@
         </a>
 
         <div class="flex items-center gap-3">
-          <a href="{{ route('profile.edit') }}">
-            <div class="hidden md:flex items-center gap-3 rounded-2xl bg-white/70 border border-white/70 px-3 py-2 shadow-sm
-                      transition hover:shadow-soft hover:-translate-y-[1px]">
-            <div class="h-9 w-9 rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
-              <img class="w-full h-full object-cover" src="{{ asset('storage/' . auth()->user()->image_url) }}" alt="">
+          {{-- Profile chip --}}
+          <a href="{{ route('profile.edit') }}" class="hidden md:block">
+            <div class="flex items-center gap-3 rounded-2xl bg-white/70 border border-white/70 px-3 py-2 shadow-sm
+                        transition hover:shadow-soft hover:-translate-y-[1px]">
+              <div class="h-9 w-9 rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
+                <img class="w-full h-full object-cover" src="{{ asset('storage/' . auth()->user()->image_url) }}" alt="">
+              </div>
+              <div class="leading-tight">
+                <p class="text-sm font-semibold text-slate-800">{{ auth()->user()->name }}</p>
+                <p class="text-xs text-slate-500">{{ auth()->user()->email }}</p>
+              </div>
             </div>
-            <div class="leading-tight">
-              <p class="text-sm font-semibold text-slate-800">{{ auth()->user()->name }}</p>
-              <p class="text-xs text-slate-500">{{ auth()->user()->email }}</p>
-            </div>
-          </div> 
           </a>
 
+          {{-- Requests badge (visual only) --}}
+          <div class="hidden sm:flex items-center gap-2 rounded-2xl bg-white/70 border border-white/60 px-3 py-2 shadow-sm">
+            <i class="fa-regular fa-bell text-slate-600"></i>
+            <span class="text-sm font-extrabold text-slate-900">{{ ($requests ?? collect())->count() }}</span>
+          </div>
+
+          {{-- Logout --}}
           <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="group inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
@@ -155,10 +160,10 @@
   <main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-      {{-- LEFT: Profile --}}
+      {{-- LEFT --}}
       <aside class="lg:col-span-3 space-y-6">
 
-        {{-- Search (premium) --}}
+        {{-- Search --}}
         <form action="{{ route('search')}}" method="GET" class="animate-fadeUp" style="animation-delay:.05s;">
           <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-4 shadow-soft
                       transition hover:-translate-y-[1px] hover:shadow-[0_18px_45px_rgba(2,6,23,.12)]">
@@ -180,20 +185,19 @@
                 </svg>
               </button>
             </div>
+            <p class="mt-3 text-xs text-slate-500">Recherche par nom / email / pseudo.</p>
           </div>
         </form>
 
         {{-- Profile card --}}
         <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl overflow-hidden shadow-soft animate-fadeUp" style="animation-delay:.12s;">
 
-          {{-- Banner (with overlay) --}}
           <div class="relative h-28 overflow-hidden">
             <img src="{{ asset('storage/' . auth()->user()->banner_url) }}" class="w-full h-full object-cover transition duration-700 hover:scale-[1.03]" alt="">
             <div class="absolute inset-0 bg-gradient-to-t from-ink-900/40 via-ink-900/10 to-transparent"></div>
           </div>
 
           <div class="px-5 pb-5">
-            {{-- Avatar + info --}}
             <div class="-mt-10 flex items-end justify-between">
               <div class="flex items-end gap-3">
                 <div class="relative w-20 h-20 rounded-3xl bg-white border border-white/70 shadow-soft overflow-hidden
@@ -208,26 +212,27 @@
               </div>
             </div>
 
-            <div>
+            <div class="mt-3 flex items-center justify-between gap-2">
               <a href="{{ route('profile.edit') }}"
-                 class="group inline-flex items-center gap-1 rounded-2xl px-4 py-1 mt-3 text-sm font-semibold
+                 class="group inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold
                         bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-soft
                         hover:opacity-95 active:scale-[0.99] transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition group-hover:rotate-[2deg]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                Edit
+                <i class="fa-regular fa-pen-to-square"></i>
+                Edit profile
               </a>
+
+              <span class="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-xs font-bold
+                           bg-white/70 border border-slate-200 text-slate-700">
+                <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                Online
+              </span>
             </div>
 
-            {{-- Stats --}}
+            {{-- Stats (static as in your code) --}}
             <div class="mt-5 grid grid-cols-3 gap-2">
               <div class="group rounded-2xl border border-white/60 bg-white/60 p-3 text-center transition hover:-translate-y-[2px] hover:bg-white/75">
                 <div class="mx-auto mb-1 h-9 w-9 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center transition group-hover:scale-[1.06]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10" />
-                  </svg>
+                  <i class="fa-regular fa-rectangle-list"></i>
                 </div>
                 <p class="text-xs text-slate-500">Posts</p>
                 <p class="font-extrabold text-ink-900">12</p>
@@ -235,9 +240,7 @@
 
               <div class="group rounded-2xl border border-white/60 bg-white/60 p-3 text-center transition hover:-translate-y-[2px] hover:bg-white/75">
                 <div class="mx-auto mb-1 h-9 w-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center transition group-hover:scale-[1.06]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H2v-2a4 4 0 014-4h1m9-4a4 4 0 10-8 0 4 4 0 008 0z" />
-                  </svg>
+                  <i class="fa-solid fa-user-group text-sm"></i>
                 </div>
                 <p class="text-xs text-slate-500">Friends</p>
                 <p class="font-extrabold text-ink-900">34</p>
@@ -245,11 +248,7 @@
 
               <div class="group rounded-2xl border border-white/60 bg-white/60 p-3 text-center transition hover:-translate-y-[2px] hover:bg-white/75">
                 <div class="mx-auto mb-1 h-9 w-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center transition group-hover:scale-[1.06]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
+                  <i class="fa-regular fa-eye"></i>
                 </div>
                 <p class="text-xs text-slate-500">Views</p>
                 <p class="font-extrabold text-ink-900">128</p>
@@ -261,10 +260,8 @@
         {{-- Quick actions --}}
         <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.18s;">
           <h3 class="font-extrabold text-ink-900 flex items-center gap-2">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
-              </svg>
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm">
+              <i class="fa-solid fa-bolt text-sm"></i>
             </span>
             Quick actions
           </h3>
@@ -290,266 +287,208 @@
 
       </aside>
 
-      {{-- MIDDLE: Posts --}}
+      {{-- MIDDLE --}}
       <section class="lg:col-span-6 space-y-6">
 
-        {{-- Create post --}}
-@if(auth()->user()->role === 'recruiter')
-<div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.18s;">
-  <div class="flex items-center justify-between">
-    <div>
-      <p class="text-sm font-bold text-slate-900">Actions rapides</p>
-      <p class="text-xs text-slate-500 mt-1">Accède</p>
-    </div>
-
-    <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
-      Recruiter
-    </span>
-  </div>
-
-  <div class="mt-4 grid grid-cols-1 sm:grid-cols-1 gap-3">
-    <!-- Optional: Create Job Offer (if you want) -->
-    <a href="{{ route('offre.new') }}"
-       class="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-[1px] hover:shadow-md">
-      <div class="flex items-start justify-between">
-        <div class="h-10 w-10 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 10H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v14a2 2 0 01-2 2z" />
-          </svg>
-        </div>
-
-        <span class="text-xs text-slate-400 group-hover:text-slate-500 transition">Offre</span>
-      </div>
-
-      <p class="mt-3 font-semibold text-slate-900">Créer une offre</p>
-      <p class="mt-1 text-sm text-slate-500">Publier une offre d’emploi avec les détails du poste.</p>
-
-      <div class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-600">
-        Aller à la création
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </div>
-    </a>
-  </div>
-</div>
-@endif
-
-        {{-- Post 1 --}}
-<!-- {{-- OFFRES --}}
-@if(isset($offres) && $offres->count())
-  @foreach($offres as $offre)
-    <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-soft animate-fadeUp"
-             style="animation-delay:.14s;">
-
-      <div class="flex items-start justify-between">
-        <div class="flex gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white
-                      flex items-center justify-center font-extrabold shadow-sm">
-            {{ strtoupper(substr($offre->title ?? 'OF', 0, 2)) }}
-          </div>
-
-          <div>
-            <p class="font-bold text-slate-900">Recruteur</p>
-            <p class="text-xs text-slate-500">
-              {{ $offre->created_at?->diffForHumans() ?? 'à l’instant' }}
-            </p>
-          </div>
-        </div>
-
-        <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-semibold">
-          Offre active
-        </span>
-      </div>
-
-      @if(!empty($offre->image_offer))
-        <div class="mt-4 overflow-hidden rounded-3xl border border-white/60 bg-white/60">
-          <img src="{{ asset('storage/'.$offre->image_offer) }}"
-               alt="Image offre"
-               class="w-full h-44 object-cover">
-        </div>
-      @endif
-
-      <h2 class="mt-4 text-lg font-extrabold text-slate-900">
-        {{ $offre->title }}
-      </h2>
-
-      <div class="mt-2 flex flex-wrap gap-2 text-xs">
-        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">📍 {{ $offre->place }}</span>
-        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">⏱️ {{ strtoupper($offre->type_offer) }}</span>
-        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600">🗓️ {{ $offre->created_at?->format('d/m/Y') }}</span>
-      </div>
-
-      <p class="mt-4 text-sm text-slate-700 leading-relaxed">
-        {{ \Illuminate\Support\Str::limit($offre->description, 180) }}
-      </p>
-
-      <div class="mt-6 flex items-center justify-between">
-        <a href="#"
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl
-                  bg-gradient-to-r from-indigo-600 to-purple-600 text-white
-                  font-bold text-sm shadow-md hover:opacity-90 transition active:scale-[0.97]">
-                  Postuler
-        </a>
-      </div>
-    </article>
-  @endforeach
-@else
-  <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-soft">
-    <p class="text-sm text-slate-600">Aucune offre pour le moment.</p>
-  </div>
-@endif -->
-
-<!-- <x-offres-infinite /> -->
-
-<livewire:offres-infinite />
-
-
-
-
-        {{-- Post 2 --}}
-        <!-- <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.2s;">
-          <div class="flex items-start justify-between">
-            <div class="flex gap-3">
-              <div class="w-11 h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-extrabold shadow-sm
-                          transition hover:scale-[1.03]">YC</div>
+        {{-- Recruiter quick box (same functionality) --}}
+        @if(auth()->user()->role === 'recruiter')
+          <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.18s;">
+            <div class="flex items-center justify-between gap-3">
               <div>
-                <p class="font-bold text-ink-900">YouCode Community</p>
-                <p class="text-xs text-slate-500">Hier • Public</p>
+                <p class="text-sm font-extrabold text-slate-900">Espace recruteur</p>
+                <p class="text-xs text-slate-500 mt-1">Créer et gérer vos offres.</p>
               </div>
+
+              <span class="text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
+                Recruiter
+              </span>
             </div>
-            <button class="h-9 w-9 rounded-2xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50
-                           transition active:scale-[0.98]">•••</button>
-          </div>
 
-          <p class="mt-4 text-slate-700 text-sm leading-relaxed">
-            Astuce Laravel: organise tes views, utilise layouts, et garde ton code clean. (Post static)
-          </p>
+            <div class="mt-4 grid grid-cols-1 gap-3">
+              <a href="{{ route('offre.new') }}"
+                 class="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-[1px] hover:shadow-md">
+                <div class="flex items-start justify-between">
+                  <div class="h-10 w-10 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+                    <i class="fa-regular fa-file-lines text-emerald-600"></i>
+                  </div>
 
-          <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-            <img
-              class="w-full h-52 object-cover transition duration-700 hover:scale-[1.03]"
-              src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=60"
-              alt="workspace"
-            >
-          </div>
+                  <span class="text-xs text-slate-400 group-hover:text-slate-500 transition">Offre</span>
+                </div>
 
-          <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
-            <span>78 likes</span>
-            <span>6 commentaires</span>
-          </div>
+                <p class="mt-3 font-extrabold text-slate-900">Créer une offre</p>
+                <p class="mt-1 text-sm text-slate-500">Publier une offre d’emploi avec tous les détails.</p>
 
-          <div class="mt-4 pt-4 border-t border-white/60 flex gap-2">
-            <button class="flex-1 px-3 py-2 rounded-2xl hover:bg-white/60 text-sm font-semibold text-slate-700 transition active:scale-[0.99]">Like</button>
-            <button class="flex-1 px-3 py-2 rounded-2xl hover:bg-white/60 text-sm font-semibold text-slate-700 transition active:scale-[0.99]">Comment</button>
-            <button class="flex-1 px-3 py-2 rounded-2xl hover:bg-white/60 text-sm font-semibold text-slate-700 transition active:scale-[0.99]">Share</button>
+                <div class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-emerald-600">
+                  Aller à la création
+                  <i class="fa-solid fa-arrow-right text-[12px]"></i>
+                </div>
+              </a>
+            </div>
           </div>
-        </article> -->
+        @endif
+
+        {{-- Offres Infinite (same) --}}
+        <livewire:offres-infinite />
 
       </section>
 
-      {{-- RIGHT: Friends --}}
+      {{-- RIGHT --}}
       <aside class="lg:col-span-3 space-y-6">
 
-        <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.1s;">
-          <h3 class="font-extrabold text-ink-900 flex items-center gap-2">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H2v-2a4 4 0 014-4h1m9-4a4 4 0 10-8 0 4 4 0 008 0z" />
-              </svg>
-            </span>
-            My friends
-          </h3>
-          <p class="text-sm text-slate-500 mt-1">Suggestions (static)</p>
+  {{-- Friend Requests (fixed layout) --}}
+  <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.1s;">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <h3 class="font-extrabold text-ink-900 flex items-center gap-2">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-white shadow-sm">
+            <i class="fa-solid fa-user-group text-sm"></i>
+          </span>
+          Friend Requests
+        </h3>
+        <p class="text-xs text-slate-500 mt-1">Demandes en attente</p>
+      </div>
 
-          <div class="mt-4 space-y-3">
+      <span class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-extrabold
+                   bg-white/70 border border-slate-200 text-slate-700">
+        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+        {{ ($requests ?? collect())->count() }}
+      </span>
+    </div>
 
-            @forelse(($requests ?? collect()) as $req)
-          <div class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-blue-300/40 px-3 py-3 hover:bg-blue-200 transition hover:-translate-y-[1px]">
-            <div class="flex items-center gap-3">
-              <div>
-                <p class="text-sm font-bold text-ink-900">{{ $req->sender->name }}</p>
-                <p class="text-xs text-slate-500">{{ $req->sender->role ?? 'user' }}</p>
+    <div class="mt-4 space-y-3">
+      @forelse(($requests ?? collect()) as $req)
+
+        <div class="group rounded-3xl border border-slate-200/70 bg-white/60 p-4
+                    hover:bg-white/80 hover:-translate-y-[1px] transition
+                    hover:shadow-[0_18px_45px_rgba(2,6,23,.10)]">
+
+          {{-- ✅ Responsive header: buttons never overlap --}}
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+            {{-- LEFT --}}
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+              <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-700 text-white
+                          flex items-center justify-center font-extrabold shadow-sm shrink-0">
+                {{ strtoupper(substr($req->sender->name ?? 'U', 0, 1)) }}
+              </div>
+
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-extrabold text-ink-900 truncate">
+                  {{ $req->sender->name }}
+                </p>
+
+                {{-- badges: wrap safely --}}
+                <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
+                  <span class="inline-flex items-center gap-1 rounded-full
+                               bg-slate-100 text-slate-600 border border-slate-200">
+                    <i class="fa-regular fa-id-badge"></i>
+                    {{ $req->sender->role ?? 'user' }}
+                  </span>
+
+                  <span class="inline-flex items-center gap-1 rounded-full
+                               bg-indigo-50 text-indigo-700 border border-indigo-100 text-[8px]">
+                    <i class="fa-regular fa-clock"></i>
+                    {{ $req->created_at?->diffForHumans() ?? 'now' }}
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div class="flex items-center gap-2">
+            {{-- RIGHT actions: aligned & fixed width --}}
+            <div class="flex items-center justify-end gap-2 shrink-0">
               <form method="POST" action="{{ route('friend-requests.accept', $req->id) }}">
                 @csrf
                 @method('PATCH')
-                <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
-                               border border-slate-200 bg-green-600 transition active:scale-[0.99]">
-                  <i class="fa-solid fa-check text-white"></i>
+                <button title="Accepter"
+                        class="h-10 w-10 rounded-2xl grid place-items-center
+                               bg-emerald-600 text-white shadow-sm
+                               hover:opacity-95 hover:shadow-md
+                               focus:outline-none focus:ring-4 focus:ring-emerald-200/60
+                               active:scale-[0.98] transition">
+                  <i class="fa-solid fa-check"></i>
                 </button>
               </form>
 
               <form method="POST" action="{{ route('friend-requests.refuse', $req->id) }}">
                 @csrf
                 @method('PATCH')
-                <button class="group inline-flex items-center gap-2 px-3 py-2 rounded-2xl text-sm font-semibold
-                               border border-slate-200 bg-red-600 transition active:scale-[0.99]">
-                  <i class="fa-solid fa-x text-white"></i>
+                <button title="Refuser"
+                        class="h-10 w-10 rounded-2xl grid place-items-center
+                               bg-rose-600 text-white shadow-sm
+                               hover:opacity-95 hover:shadow-md
+                               focus:outline-none focus:ring-4 focus:ring-rose-200/60
+                               active:scale-[0.98] transition">
+                  <i class="fa-solid fa-xmark"></i>
                 </button>
               </form>
             </div>
+
           </div>
-          @empty
-            <p class="text-sm text-slate-500">aucun demandes d'amis ...</p>
-          @endforelse
+
+          <div class="mt-3 pt-3 border-t border-white/70 flex items-center justify-between text-xs">
+            <span class="text-slate-500">Décide maintenant</span>
+            <a href="{{ route('users.show', $req->sender_id) }}"
+               class="inline-flex items-center gap-2 font-extrabold text-indigo-700 hover:text-indigo-800 transition">
+              Voir profil
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
           </div>
         </div>
 
-        <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.16s;">
-          <h3 class="font-extrabold text-ink-900 flex items-center gap-2">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
-              </svg>
-            </span>
-            Tips
-          </h3>
-          <ul class="mt-3 text-sm text-slate-600 space-y-2">
-            <li class="flex items-center gap-2">
-              <span class="h-2 w-2 rounded-full bg-cyan-500"></span> Complète ton profil
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="h-2 w-2 rounded-full bg-indigo-500"></span> Ajoute ta spécialité
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Explore les offres
-            </li>
-          </ul>
+      @empty
+        <div class="rounded-3xl border border-dashed border-slate-200 bg-white/50 p-6 text-center">
+          <div class="mx-auto h-12 w-12 rounded-2xl bg-slate-100 border border-slate-200 grid place-items-center text-slate-500">
+            <i class="fa-regular fa-bell"></i>
+          </div>
+          <p class="mt-3 font-extrabold text-ink-900">Aucune demande</p>
+          <p class="mt-1 text-sm text-slate-500">Quand quelqu’un t’ajoute, tu la verras ici.</p>
         </div>
+      @endforelse
+    </div>
+  </div>
 
-      </aside>
+  {{-- Tips --}}
+  <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-5 shadow-soft animate-fadeUp" style="animation-delay:.16s;">
+    <div class="flex items-center justify-between">
+      <h3 class="font-extrabold text-ink-900 flex items-center gap-2">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm">
+          <i class="fa-solid fa-lightbulb text-sm"></i>
+        </span>
+        Tips
+      </h3>
+      <span class="text-xs font-semibold text-slate-500">Boost</span>
+    </div>
+
+    <ul class="mt-4 space-y-3 text-sm">
+      <li class="flex items-start gap-3">
+        <span class="mt-1 h-2.5 w-2.5 rounded-full bg-cyan-500"></span>
+        <div>
+          <p class="font-semibold text-slate-800">Complète ton profil</p>
+          <p class="text-slate-500 text-xs mt-0.5">Photo, bio, expériences — plus de visibilité.</p>
+        </div>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-1 h-2.5 w-2.5 rounded-full bg-indigo-500"></span>
+        <div>
+          <p class="font-semibold text-slate-800">Ajoute tes skills</p>
+          <p class="text-slate-500 text-xs mt-0.5">Aide les recruteurs à te trouver rapidement.</p>
+        </div>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+        <div>
+          <p class="font-semibold text-slate-800">Explore les offres</p>
+          <p class="text-slate-500 text-xs mt-0.5">Postule régulièrement pour augmenter tes chances.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</aside>
 
     </div>
   </main>
 
-  <script>
-    // Small micro-interactions: reveal on scroll (simple, no libs)
-    (function () {
-      const items = document.querySelectorAll('.reveal-on-scroll');
-      if (!items.length) return;
-
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('animate-fadeUp');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      items.forEach(el => io.observe(el));
-    })();
-  </script>
-
-  <!--
-  @if(isset($usersearch) && $usersearch !== '')
-    ...
-  @endif
-  -->
-@livewireScripts
+  @livewireScripts
 </body>
 </html>
