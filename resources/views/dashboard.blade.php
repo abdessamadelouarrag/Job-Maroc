@@ -7,6 +7,7 @@
   <title>JobMaroc — Dashboard</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -84,6 +85,7 @@
       * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
   </style>
+  @livewireStyles
 </head>
 
 <body class="min-h-screen font-sans antialiased text-slate-800
@@ -332,7 +334,7 @@
 </div>
 
         {{-- Post 1 --}}
-{{-- OFFRES --}}
+<!-- {{-- OFFRES --}}
 @if(isset($offres) && $offres->count())
   @foreach($offres as $offre)
     <article class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-soft animate-fadeUp"
@@ -381,13 +383,11 @@
       </p>
 
       <div class="mt-6 flex items-center justify-between">
-        <p class="text-xs text-slate-500">ID: {{ $offre->id }}</p>
-
         <a href="#"
            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl
                   bg-gradient-to-r from-indigo-600 to-purple-600 text-white
                   font-bold text-sm shadow-md hover:opacity-90 transition active:scale-[0.97]">
-          Voir / Postuler
+                  Postuler
         </a>
       </div>
     </article>
@@ -396,7 +396,11 @@
   <div class="bg-white/70 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-soft">
     <p class="text-sm text-slate-600">Aucune offre pour le moment.</p>
   </div>
-@endif
+@endif -->
+
+<!-- <x-offres-infinite /> -->
+
+<livewire:offres-infinite />
 
 
 
@@ -546,6 +550,6 @@
     ...
   @endif
   -->
-
+@livewireScripts
 </body>
 </html>
