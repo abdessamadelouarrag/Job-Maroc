@@ -76,5 +76,6 @@
     Route::post('/offres/{offre}/postuler', [OffreController::class, 'postuler'])
         ->name('offres.postuler');});
 
+
     });
     require __DIR__ . '/auth.php';
