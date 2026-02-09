@@ -7,6 +7,8 @@
     use App\Http\Controllers\FriendRequestController;
     use App\Http\Controllers\OffreController;
     use App\Http\Controllers\DashboardController;
+    use App\Http\Controllers\ApplicationController;
+
 
 
 
@@ -65,6 +67,14 @@
         ->name('dashboard');
 
 
+        Route::post('/offers/{id}/apply', [ApplicationController::class, 'store'])
+        ->middleware('auth')
+        ->name('offers.apply');
+
+
+        Route::middleware(['auth'])->group(function () {
+    Route::post('/offres/{offre}/postuler', [OffreController::class, 'postuler'])
+        ->name('offres.postuler');});
 
     });
     require __DIR__ . '/auth.php';

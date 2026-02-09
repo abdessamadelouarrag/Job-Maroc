@@ -73,8 +73,14 @@ class FriendRequestController extends Controller
         ->latest()
         ->get();
 
-        return view('dashboard', compact('requests'));
+        $appliedOffersIds = Application::where('id_user', auth()->id())
+        ->pluck('id_offre')
+        ->toArray();
+
+        return view('dashboard', compact('requests', 'appliedOffersIds'));
     }
+
+
 
     public function accept($id)
     {

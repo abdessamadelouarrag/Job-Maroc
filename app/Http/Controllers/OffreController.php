@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Offre;
+use App\Models\MyOffre;
+use Illuminate\Support\Facades\Auth;
 
 class OffreController extends Controller
 {
@@ -53,4 +55,37 @@ class OffreController extends Controller
         return view('dashboard', compact('offres'));
     }
 
+    public function all(Offre $offre)
+    {
+        $alreadyApplied = false;
+
+        if (Auth::check()) {
+            $alreadyApplied = MyOffre::where('id_user', Auth::id())
+                ->where('id_offre', $offre->id)
+                ->where('status', 'applied') // optional
+                ->exists();
+        }
+
+        return view('offres.show', compact('offre', 'alreadyApplied'));
+    }
+
+    public function postuler(Offre $offre)
+{
+    // منع التكرار
+    $exists = MyOffre::where('id_user', Auth::id())
+        ->where('id_offre', $offre->id)
+        ->exists();
+
+    if ($exists) {
+        return back()->with('error', 'Vous avez déjà postulé.');
+    }
+
+    MyOffre::create([
+        'id_user'  => Auth::id(),
+        'id_offre' => $offre->id,
+        'status'   => 'applied',
+    ]);
+
+    return back()->with('success', 'Postulation envoyée.');
+}
 }
